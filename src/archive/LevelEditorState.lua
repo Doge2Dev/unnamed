@@ -16,6 +16,7 @@ function leveleditor:init()
     currentBlock = 1
     marker = {x=0, y=0}
     canPlace = true
+    swipeMode = false
     UI.load()
     editorOffset = 0
     playtest = false
@@ -36,17 +37,12 @@ function leveleditor:draw()
     love.graphics.rectangle("line", marker.x, marker.y, 32, 32)
     love.graphics.setColor(utilities.rgbToColor(255, 255, 255, 255))
 
-    love.graphics.print(tostring(playtest), 10, 210)
+    love.graphics.print("Swipe : " .. tostring(swipeMode), 10, 210)
     love.graphics.print(tostring(editorOffset), 10, 250)
 
 
     for k, Block in pairs(MapSettings.Blocks) do
         love.graphics.draw(tileImage, tileQuads[Block.id], Block.x - (editorOffset * 32), Block.y)
-        if Block.collidable then
-            love.graphics.setColor(utilities.rgbToColor(255, 0, 0, 100))
-            love.graphics.rectangle("fill", Block.x - (editorOffset * 32), Block.y, Block.w, Block.h)
-            love.graphics.setColor(utilities.rgbToColor(255, 255, 255, 255))
-        end
     end
     gui:draw()
 end
@@ -66,13 +62,15 @@ function leveleditor:update(elapsed)
         MapSettings.speed = tonumber(mapSpeed.value)
     end
 
-    if love.mouse.isDown(1) and canPlace and not isHoverBlock(marker.x + (editorOffset * 32), marker.y) then
-        placeBlock(marker.x + (editorOffset * 32), marker.y, currentBlock)
-        print("block placed")
-    end
-    if love.mouse.isDown(2) then
-        removeBlock(marker.x + (editorOffset * 32), marker.y)
-        print("block deleted")
+    if swipeMode then
+        if love.mouse.isDown(1) and canPlace and not isHoverBlock(marker.x + (editorOffset * 32), marker.y) then
+            placeBlock(marker.x + (editorOffset * 32), marker.y, currentBlock)
+            print("block placed")
+        end
+        if love.mouse.isDown(2) then
+            removeBlock(marker.x + (editorOffset * 32), marker.y)
+            print("block deleted")
+        end
     end
 
     if playtest then
@@ -90,20 +88,12 @@ function leveleditor:keypressed (key, code, isrepeat)
             table.remove(MapSettings.Blocks, #Blocks)
         end
     end
-    if key == Controls.Keyboard.ACCEPT then
-        editorOffset = math.floor(editorOffset)
-        conductor.setPosition(editorOffset)
-        if playtest then
-            playtest = false
-            conductor.stop()
-        else
-            playtest = true
-            conductor.play()
-        end
-    end
-    if key == Controls.Keyboard.ACTION then
-        editorOffset = 0
-        conductor.setPosition(0)
+    if key == "rctrl" then
+        if swipeMode then
+			swipeMode = false
+		else
+			swipeMode = true
+		end
     end
 end
 
@@ -115,14 +105,16 @@ end
 
 function leveleditor:mousepressed(x, y, button)
 	gui:mousepress(x, y, button)
-    --[[
-    if button == 1 and canPlace and not isHoverBlock(marker.x, marker.y) then
-        placeBlock(marker.x, marker.y, currentBlock)
-        print("block placed")
+
+    if not swipeMode then
+        if button == 1 and canPlace and not isHoverBlock(marker.x, marker.y) then
+            placeBlock(marker.x + (editorOffset * 32), marker.y, currentBlock)
+            print("block placed")
+        end
+        if button == 2 then
+            removeBlock(marker.x + (editorOffset * 32), marker.y)
+        end
     end
-    if button == 2 then
-        removeBlock(marker.x, marker.y)
-    end]]--
 end
 
 function leveleditor:mousereleased(x, y, button)
@@ -146,8 +138,7 @@ function placeBlock(x, y, id)
         y = y,
         w = 32,
         h = 32,
-        id = id,
-        collidable = collideCheckBox.value
+        id = id
     }
 
     table.insert(MapSettings.Blocks, Block)

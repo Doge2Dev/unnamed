@@ -23,12 +23,7 @@ function menustate:init()
 
     LogoSize = 0.5
 
-    --particle system
-    fade = love.graphics.newImage("resources/images/FX/glow.png")
-    psystem = love.graphics.newParticleSystem(fade, 32)
-	psystem:setParticleLifetime(10) -- Particles live at least 2s and at most 5s.
-	psystem:setLinearAcceleration(-5, -5, 50, 100) -- Randomized movement towards the bottom of the screen.
-    psystem:setColors(255, 255, 255, 255, 255, 255, 255, 0) -- Fade to black.
+    gradientFX = love.graphics.newImage("resources/images/FX/gradient.png")
 
     CurrentItem = 1
     Selected = false
@@ -38,14 +33,14 @@ function menustate:init()
     logo = love.graphics.newImage("resources/images/menu/logo.png")
     studioLogo = love.graphics.newImage("resources/images/logoTransparent.png")
     transition.newIn(2)
-
-    quicksand = love.graphics.newFont("resources/fonts/quicksand-semibold.ttf", 40)
-    love.graphics.setFont(quicksand)
 end
 
 function menustate:draw()
-    local txt = "Press [Enter] to start"
     love.graphics.draw(bg, 0, 0, 0, 1.3, 1.3)
+    love.graphics.setColor(1, 1, 1, 0.3)
+    love.graphics.draw(gradientFX, 0, love.graphics.getHeight() - 256, 0, 2.5, 0.5)
+    love.graphics.draw(gradientFX, 0, 256, 0, 2.5, -0.5)
+    love.graphics.setColor(1, 1, 1, 1)
     local yp = 100
     for i = 1, #MenuItemsIndex, 1 do
         love.graphics.draw(menuItemsImage, 
@@ -53,7 +48,6 @@ function menustate:draw()
         yp = yp + 150
     end
     menuFX.render()
-    love.graphics.draw(psystem, 800, 280, 0, 0.5, 0.5)
     love.graphics.draw(logo, 800, 280, 0, 
     LogoSize, LogoSize, 
     logo:getWidth() / 2, logo:getHeight() / 2)
@@ -64,8 +58,6 @@ end
 function menustate:update(elapsed)
     MenuItemsIndex = {7,5,3,1}
     MenuItemsIndex[CurrentItem] = MenuItemsIndexSelected[CurrentItem]
-
-    psystem:update(elapsed)
 
     if CurrentItem < 1 then
         CurrentItem = #MenuItemsIndex
@@ -87,7 +79,7 @@ function menustate:update(elapsed)
         if CurrentItem == 3 then
             gamestate.switch(states.Options)
         end
-        if CurrentItem == 3 then
+        if CurrentItem == 4 then
             gamestate.switch(states.Credits)
         end
     end
@@ -140,7 +132,6 @@ end
 function bumpLogo(amount)
     LogoSize = amount
     menuFX.new(800, 280)
-    psystem:emit(10)
 end
 
 return menustate

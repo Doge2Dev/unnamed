@@ -20,7 +20,8 @@ function playstate:init()
 
     MapSettings = {
         speed = 1.0,
-        Blocks = {}
+        mapColors = {},
+        Blocks = {},
     }
 
     camZoom = 0.5
@@ -40,7 +41,7 @@ function playstate:draw()
     effect(function() 
         Camera:attach()
             player:render() 
-            for k, Block in pairs(MapSettings.Blocks) do
+            for k, Block in ipairs(MapSettings.Blocks) do
                 love.graphics.draw(tileImage, tileQuads[Block.id], Block.x, Block.y)
             end    
         Camera:detach()
@@ -50,10 +51,15 @@ end
 
 function playstate:update(elapsed)
     player:update(elapsed)
+
     conductor.update()
+
     editorOffset = (MapSettings.speed * 1.5) + (editorOffset + (conductor.dspSongTime * 1000) * 0.5) + elapsed
+
     Camera:lookAt(math.floor(editorOffset), love.graphics.getHeight() / 2)
+
     eventhandler.update(elapsed)
+
     camZoom = Math.lerp(camZoom, 1, 1.4)
     Camera:zoomTo(camZoom)
 
@@ -62,8 +68,9 @@ function playstate:update(elapsed)
             table.remove(MapSettings.Blocks, k)
         end
         if utilities.collision(player:getHitbox(), Block) and isPlayerAlive then
+            isPlayerAlive = false
+            print("[COLLISION] block")
             timer.after(3, function()
-                isPlayerAlive = false
                 print("[COLLISION] block")
             end)
         end
@@ -71,6 +78,7 @@ function playstate:update(elapsed)
 
     for k, projectile in pairs(shoot.Shoots) do
         if utilities.collision(player:getHitbox(), projectile) and isPlayerAlive then
+            isPlayerAlive = false
             timer.after(3, function()
                 isPlayerAlive = false
                 print("[COLLISION] shoot")

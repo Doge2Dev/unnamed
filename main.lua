@@ -9,6 +9,7 @@ function love.load()
     Switch = require 'libraries.switch'
     Console = require 'libraries.console'
     moonshine = require 'libraries.moonshine'
+    debugcomponent = require 'src.components.Debug'
 
     quicksand = love.graphics.newFont("resources/fonts/quicksand-light.ttf", 20)
     love.graphics.setFont(quicksand)
@@ -20,9 +21,9 @@ function love.load()
 	joystick = joysticks[1]
 
     states = {
-        Logostate = require 'src.states.resources.LogoState',
+        Logostate = require 'src.states.LogoState',
         Menu = require 'src.states.MenuState',
-        LevelEditor = require 'src.states.LevelEditorState',
+        --LevelEditor = require 'src.states.LevelEditorState',
         LevelSelect = require 'src.states.LevelSelectState',
         Playstate = require 'src.states.Playstate',
         Options = require 'src.states.OptionsState',
@@ -35,7 +36,7 @@ function love.load()
     effect.glow.min_luma = 0.3
 
     gamestate.registerEvents()
-    gamestate.switch(states.Menu)
+    gamestate.switch(states.Logostate)
 end
 
 function love.draw()

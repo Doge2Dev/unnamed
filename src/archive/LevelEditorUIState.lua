@@ -8,7 +8,6 @@ function UIState.load()
     mapSpeed = gui:input("level speed", {x=80, y=80, w=96, h=24}, nil, "1.0")
     songname = gui:input("Music", {x=80, y=111, w=96, h=24}, nil, "dubnix")
     local loadSongButton = gui:button("load", {x=180, y=111, w=96, h=24})
-    collideCheckBox = gui:checkbox("Allow Collision", {x=80, y=50, r=8})
     
     function songname.enter(this)
         canPlace = false
@@ -26,12 +25,6 @@ function UIState.load()
         canPlace = false
     end
     function mapSpeed.leave(this)
-        canPlace = true
-    end
-    function collideCheckBox.enter(this)
-        canPlace = false
-    end
-    function collideCheckBox.leave(this)
         canPlace = true
     end
     function mapName.enter(this)
@@ -69,7 +62,7 @@ function UIState.load()
     function loadButton.click(this, x, y, button)
         if mapName.value ~= nil then
             print(mapName.value)
-            mapdata = love.filesystem.read("resources/data/" .. mapName.value .. ".lvl")
+            mapdata = love.filesystem.read("resources/data/maps/" .. mapName.value .. "/map.lvl")
             MapSettings = json.decode(mapdata)
         end
     end
