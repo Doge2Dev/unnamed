@@ -52,9 +52,9 @@ function UIState.load()
 
     function saveButton.click(this, x, y, button)
         if mapName.value ~= nil then
-            local mapdata = json.beautify(MapSettings)
+            local mapdata = json.encode(MapSettings)
             local mapFile = love.filesystem.newFile(mapName.value .. ".lvl", "w")
-            print(mapFile)
+            print("[EVENT] : File saved")
             mapFile:write(mapdata)
             mapFile:close()
         end
@@ -62,6 +62,7 @@ function UIState.load()
     function loadButton.click(this, x, y, button)
         if mapName.value ~= nil then
             print(mapName.value)
+            print("[EVENT] : File loaded")
             mapdata = love.filesystem.read("resources/data/maps/" .. mapName.value .. "/map.lvl")
             MapSettings = json.decode(mapdata)
         end

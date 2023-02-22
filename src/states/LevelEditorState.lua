@@ -19,8 +19,6 @@ function leveleditor:init()
     swipeMode = false
     UI.load()
     editorOffset = 0
-    playtest = false
-
 end
 
 function leveleditor:draw()
@@ -72,11 +70,6 @@ function leveleditor:update(elapsed)
             print("block deleted")
         end
     end
-
-    if playtest then
-        conductor.update(elapsed)
-        editorOffset = (MapSettings.speed * 0.1) + (editorOffset + (conductor.dspSongTime * 1000) * 0.5)
-    end
 end
 
 function leveleditor:keypressed (key, code, isrepeat)
@@ -88,7 +81,7 @@ function leveleditor:keypressed (key, code, isrepeat)
             table.remove(MapSettings.Blocks, #Blocks)
         end
     end
-    if key == "rctrl" then
+    if key == "lctrl" then
         if swipeMode then
 			swipeMode = false
 		else
@@ -99,7 +92,7 @@ end
 
 function leveleditor:textinput(key)
 	if gui.focus then
-		gui:textinput(key) 
+		gui:textinput(key)
 	end
 end
 

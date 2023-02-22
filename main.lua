@@ -14,33 +14,32 @@ function love.load()
     quicksand = love.graphics.newFont("resources/fonts/quicksand-light.ttf", 20)
     love.graphics.setFont(quicksand)
 
-    love.keyboard.setKeyRepeat(true)
+    states = {
+        Logostate = require 'src.states.LogoState',
+        Menu = require 'src.states.MenuState',
+        LevelEditor = require 'src.states.LevelEditorState',
+        LevelSelect = require 'src.states.LevelSelectState',
+        Playstate = require 'src.states.Playstate',
+        Options = require 'src.states.OptionsState',
+        Playlist = require 'src.states.PlaylistState',
+        Credits = require 'src.states.CreditsState',
+        DeathState = require 'src.states.DeathState'
+        --EventEditor = require 'src.states.EventEditor'
+    }
 
     -- allowing joysticks and gamepads --
     local joysticks = love.joystick.getJoysticks()
 	joystick = joysticks[1]
 
-    states = {
-        Logostate = require 'src.states.LogoState',
-        Menu = require 'src.states.MenuState',
-        --LevelEditor = require 'src.states.LevelEditorState',
-        LevelSelect = require 'src.states.LevelSelectState',
-        Playstate = require 'src.states.Playstate',
-        Options = require 'src.states.OptionsState',
-        Playlist = require 'src.states.PlaylistState',
-        Credits = require 'src.states.CreditsState'
-        --EventEditor = require 'src.states.EventEditor'
-    }
-
     effect = moonshine(moonshine.effects.glow)
     effect.glow.min_luma = 0.3
+    effect.glow.strength = 5 
 
     gamestate.registerEvents()
     gamestate.switch(states.Logostate)
 end
 
 function love.draw()
-    
 end
 
 function love.update(dt)

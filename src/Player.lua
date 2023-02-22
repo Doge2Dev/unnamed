@@ -1,7 +1,6 @@
 player = {}
 
 atlasparser = require 'src.components.AtlasParser'
-shoot = require 'src.events.Shoot'
 
 function player:set(x, y)
     self.x = x
@@ -37,6 +36,21 @@ function player:update(elapsed)
         end
     end
 
+    if isPlayerAlive then
+        if joystick:isGamepadDown(Controls.Gamepad.UP) then
+            self.y = self.y - 5
+        end
+        if joystick:isGamepadDown(Controls.Gamepad.DOWN) then
+            self.y = self.y + 5
+        end
+        if joystick:isGamepadDown(Controls.Gamepad.LEFT) then
+            self.x = self.x - 5
+        end
+        if joystick:isGamepadDown(Controls.Gamepad.RIGHT) then
+            self.x = self.x + 5
+        end
+    end
+
     self.hitbox.x = self.x
     self.hitbox.y = self.y
 
@@ -54,6 +68,10 @@ end
 -- expose hitbox table
 function player:getHitbox()
     return self.hitbox
+end
+
+function player:position()
+    return self.x, self.y
 end
 
 return player

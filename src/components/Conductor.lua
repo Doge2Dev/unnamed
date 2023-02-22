@@ -1,6 +1,6 @@
 conductor = {}
 
-conductor.bpm = 0.0
+local bpm = 0.0
 conductor.secPerBeat = 0
 conductor.songPosition = 0
 conductor.songPositionInBeats = 0
@@ -14,8 +14,8 @@ conductor.songPositionInSteps = 0
 function conductor.load(filename)
     audio = love.audio.newSource("resources/sounds/" .. filename .. ".ogg", "static")
 
-    conductor.secPerBeat = 60.0 / conductor.bpm
-    conductor.crochet = ((60 / conductor.bpm) * 1000)
+    conductor.secPerBeat = 60.0 / bpm
+    conductor.crochet = ((60 / bpm) * 1000)
     conductor.stepCrochet = conductor.crochet / 4
     conductor.dspSongTime = audio:tell("seconds")
 end
@@ -68,6 +68,13 @@ function conductor.update(dt)
         conductor.songPositionInBeats = math.floor(conductor.songPosition / conductor.secPerBeat)
         conductor.songPositionInSteps = math.floor(audio:tell("seconds") - conductor.dspSongTime / conductor.stepCrochet)
     end
+end
+
+function conductor.setBPM(amount)
+    print("BPM Changed")
+    bpm = amount
+    conductor.secPerBeat = 60.0 / bpm
+    conductor.crochet = ((60 / bpm) * 1000)
 end
 
 return conductor

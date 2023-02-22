@@ -10,7 +10,7 @@ function menustate:init()
     tween = require 'libraries.tween'
 
     conductor.load("abstraction")
-    conductor.bpm = 122
+    conductor.setBPM(122)
     audioPlay = conductor.play()
     if not audioPlay then
         audioPlay = conductor.play()
@@ -19,7 +19,7 @@ function menustate:init()
     MenuItemsIndex = {7,5,3,1}
     MenuItemsIndexSelected = {8,6,4,2}
 
-    lastSavedBeat = conductor.songPositionInSteps
+    lastSavedBeat = conductor.songPositionInBeats
 
     LogoSize = 0.5
 
@@ -85,8 +85,8 @@ function menustate:update(elapsed)
     end
     conductor.update()
 
-    if conductor.songPositionInSteps ~= lastSavedBeat then
-        lastSavedBeat = conductor.songPositionInSteps
+    if conductor.songPositionInBeats ~= lastSavedBeat then
+        lastSavedBeat = conductor.songPositionInBeats
         print("[EVENT] : On step")
         bumpLogo(0.55)
     end
