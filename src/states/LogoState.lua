@@ -2,7 +2,7 @@ logostate = {}
 
 function logostate:init()
     Timer = require 'libraries.timer'
-    studioLogo = love.graphics.newImage("resources/images/logo.png")
+    studioLogo = love.graphics.newImage("resources/images/logoTransparent.png")
     studioLogoSize = 0.6
 
     quicksand = love.graphics.newFont("resources/fonts/quicksand-light.ttf", 20)

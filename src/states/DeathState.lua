@@ -3,6 +3,7 @@ death = {}
 function death:init()
     conductor = require 'src.components.Conductor'
     Math = require 'src.Math'
+
     conductor.stop()
     conductor.load("Game_Over")
 
@@ -46,7 +47,6 @@ function death:draw()
             end
         end
     )
-    conductor.render()
 end
 
 function death:update(elapsed)

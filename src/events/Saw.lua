@@ -11,16 +11,21 @@ function saw.new(x, y, speed, size)
         size = size,
     }
     Saw.texture = love.graphics.newImage("resources/images/objects/saw.png")
-    Saw.w = Shoot.texture:getWidth()
-    Saw.h = Shoot.texture:getHeight()
+    Saw.w = Saw.texture:getWidth() - (Saw.texture:getWidth() / 2)
+    Saw.h = Saw.texture:getHeight() - (Saw.texture:getHeight() / 2)
     Saw.angle = 0
     table.insert(saw.Saws, Saw)
 end
 
 function saw.render()
     for k, saw in pairs(saw.Saws) do
-        love.graphics.draw(saw.texture, saw.x, saw.y, saw.angle, saw.size, saw.size)
-        love.graphics.rectangle("line", saw.x, saw.y, saw.w, saw.h)
+        love.graphics.draw(
+            saw.texture, saw.x, saw.y, saw.angle, saw.size, saw.size, saw.w / 2, saw.h / 2
+        )
+        love.graphics.rectangle(
+            "line", saw.x - (saw.w / 2), 
+            saw.y - (saw.h / 2) * saw.size, saw.w, saw.h
+        )
     end
 end
 

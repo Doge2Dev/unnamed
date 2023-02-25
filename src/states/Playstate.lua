@@ -113,7 +113,7 @@ function playstate:update(elapsed)
             psystem:emit(10)
             isPlayerAlive = false
             deathTimer = timer.new()
-            print("[COLLISION] projectile")
+            print("[COLLISION] saw")
         end
     end
 
@@ -142,11 +142,11 @@ function newBullet(amount)
     )
 end
 
-function newSaw(y)
+function newSaw()
     saw.new(
         love.graphics.getWidth() + editorOffset, 
         math.random(1, love.graphics.getHeight()), 
-        math.random(1,3), 0.3
+        math.random(1,3), 1
     )
 end
 

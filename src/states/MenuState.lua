@@ -91,18 +91,20 @@ function menustate:keypressed(k, code)
         gamestate.switch(states.LevelEditor)
     end
     if k == Controls.Keyboard.ACCEPT then
-        if CurrentItem == 1 then
-            gamestate.switch(states.LevelSelect)
-        end
-        if CurrentItem == 2 then
-            gamestate.switch(states.Playlist)
-        end
-        if CurrentItem == 3 then
-            gamestate.switch(states.Options)
-        end
-        if CurrentItem == 4 then
-            gamestate.switch(states.Credits)
-        end
+        Switch(CurrentItem, {
+            [1] = function()
+                gamestate.switch(states.LevelSelect)
+            end,
+            [2] = function()
+                gamestate.switch(states.Playlist)
+            end,
+            [3] = function()
+                gamestate.switch(states.OptionsState)
+            end,
+            [4] = function()
+                gamestate.switch(states.Credits)
+            end
+        })
     end
 end
 

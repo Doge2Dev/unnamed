@@ -16,7 +16,8 @@ end
 
 function shoot.render()
     for k, shoot in pairs(shoot.Shoots) do
-        love.graphics.draw(shoot.texture, shoot.x, shoot.y, 0, 0.5, 0.5)
+        love.graphics.draw(shoot.texture, shoot.x, shoot.y, 0, 1, 1)
+        love.graphics.rectangle("line", shoot.x, shoot.y, shoot.w, shoot.h)
     end
 end
 

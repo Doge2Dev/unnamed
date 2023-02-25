@@ -18,7 +18,7 @@ function playlist:init()
     quicksand = love.graphics.newFont("resources/fonts/quicksand-light.ttf", 40)
     love.graphics.setFont(quicksand)
 
-    cursor = love.graphics.newImage("resources/images/editor/eventNote.png")
+    cursor = love.graphics.newImage("resources/images/menu/cursor.png")
     bg = love.graphics.newImage("resources/images/bgs/game_bg5.png")
     cursor_y = 40
     maxY = 0
@@ -26,20 +26,22 @@ end
 
 function playlist:draw()
     love.graphics.draw(bg, 0, 0, 0, 1.2, 1.2)
-    local y = 150
-    for i = 1, #songlist, 1 do
-        love.graphics.draw(cursor, 10, cursor_y, 0, 0.7, 0.7)
-        effect(function()
-            love.graphics.print(songlist[i], 60, y)
-        end)
-        y = y + 50
-    end
-    maxY = y - 50
+    local y = 160
+
+    effect(function()
+        love.graphics.draw(cursor, 10, cursor_y + 5)
+        for i = 1, #songlist, 1 do
+                love.graphics.print(songlist[i], 80, y)
+            
+            y = y + 50
+        end
+        maxY = y - 50
+    end)
 end
 
 function playlist:update(elapsed)
-    if cursor_y < 150 then
-        cursor_y = 150
+    if cursor_y < 160 then
+        cursor_y = 160
     end
     if cursor_y > maxY then
         cursor_y = maxY

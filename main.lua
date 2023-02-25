@@ -21,11 +21,18 @@ function love.load()
         LevelEditor = require 'src.states.LevelEditorState',
         LevelSelect = require 'src.states.LevelSelectState',
         Playstate = require 'src.states.Playstate',
-        Options = require 'src.states.OptionsState',
+        OptionsState = require 'src.states.OptionsState',
         Playlist = require 'src.states.PlaylistState',
         Credits = require 'src.states.CreditsState',
         DeathState = require 'src.states.DeathState'
         --EventEditor = require 'src.states.EventEditor'
+    }
+
+    -- settings --
+    Settings = {
+        visuals = {
+            VFX = true
+        }
     }
 
     -- allowing joysticks and gamepads --
