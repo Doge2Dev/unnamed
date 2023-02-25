@@ -1,8 +1,8 @@
 function love.conf(w)
     w.window.width          =       1280
     w.window.height         =       768
-    w.window.title          =       "new love game"
+    w.window.title          =       "ProjectNX"
     w.console               =       true
-    w.identity              =       "mygame"
+    w.identity              =       "projectnx"
     w.window.resizable      =       false 
 end

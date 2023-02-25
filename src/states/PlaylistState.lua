@@ -22,8 +22,6 @@ function playlist:init()
     bg = love.graphics.newImage("resources/images/bgs/game_bg5.png")
     cursor_y = 40
     maxY = 0
-    isTransitioning = false
-    transition.newIn(2)
 end
 
 function playlist:draw()
@@ -37,7 +35,6 @@ function playlist:draw()
         y = y + 50
     end
     maxY = y - 50
-    transition.render()
 end
 
 function playlist:update(elapsed)
@@ -54,36 +51,27 @@ function playlist:update(elapsed)
         currentSelection = #songlist
     end
 
-    if isTransitioning then
-        local onComplete = transition.update(elapsed)
-        if onComplete then
-            gamestate.switch(states.Playstate)
-        end
-    end
 end
 
 function playlist:keypressed(k)
-    if not isTransitioning then
-        if k == Controls.Keyboard.SELECT_UP then
-            cursor_y = cursor_y - 50
-            currentSelection = currentSelection - 1
-        end
-        if k == Controls.Keyboard.SELECT_DOWN then
-            cursor_y = cursor_y + 50
-            currentSelection = currentSelection + 1
-        end
-        if k == Controls.Keyboard.ACCEPT then
-            conductor.stop()
-            playstate.levelToLoad = songlist[currentSelection]
-            conductor.bpm = songlistBpm[currentSelection]
-            isTransitioning = true
-        end
-        if k == Controls.Keyboard.BACK then
-            playstate.levelToLoad = songlist[currentSelection]
-            conductor.bpm = songlistBpm[currentSelection]
-            isTransitioning = true
-        end
+    if k == Controls.Keyboard.SELECT_UP then
+        cursor_y = cursor_y - 50
+        currentSelection = currentSelection - 1
     end
+    if k == Controls.Keyboard.SELECT_DOWN then
+        cursor_y = cursor_y + 50
+        currentSelection = currentSelection + 1
+    end
+    if k == Controls.Keyboard.ACCEPT then
+        conductor.stop()
+        playstate.levelToLoad = songlist[currentSelection]
+        playstate.bpm = songlistBpm[currentSelection]
+        gamestate.switch(states.Playstate)
+    end
+    if k == Controls.Keyboard.BACK then
+        gamestate.switch(states.Menu)
+    end
+    
 end
 
 return playlist

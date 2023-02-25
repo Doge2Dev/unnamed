@@ -52,6 +52,11 @@ end
 function death:update(elapsed)
     conductor.update(elapsed)
 
+    if not conductor.getAudio():isPlaying() then
+        conductor.stop()
+        conductor.play()
+    end
+
     if conductor.songPositionInBeats ~= lastSavedBeat then
         lastSavedBeat = conductor.songPositionInBeats
         warnBump = 1.2

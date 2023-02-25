@@ -36,18 +36,42 @@ function player:update(elapsed)
         end
     end
 
+    if (self.x - self.hitbox.w) - editorOffset > love.graphics.getWidth() then
+        self.x = (self.x - self.hitbox.w) + 4
+    end
+
+
     if isPlayerAlive then
-        if joystick:isGamepadDown(Controls.Gamepad.UP) then
-            self.y = self.y - 5
-        end
-        if joystick:isGamepadDown(Controls.Gamepad.DOWN) then
-            self.y = self.y + 5
-        end
-        if joystick:isGamepadDown(Controls.Gamepad.LEFT) then
-            self.x = self.x - 5
-        end
-        if joystick:isGamepadDown(Controls.Gamepad.RIGHT) then
-            self.x = self.x + 5
+        if joystick ~= nil then
+            if joystick:isGamepadDown(Controls.Gamepad.UP) then
+                self.y = self.y - 5
+            end
+            if joystick:isGamepadDown(Controls.Gamepad.DOWN) then
+                self.y = self.y + 5
+            end
+            if joystick:isGamepadDown(Controls.Gamepad.LEFT) then
+                self.x = self.x - 5
+            end
+            if joystick:isGamepadDown(Controls.Gamepad.RIGHT) then
+                self.x = self.x + 5
+            end
+            local valueX = joystick:getGamepadAxis("leftx")
+            local valueY = joystick:getGamepadAxis("lefty")
+
+            if valueX < 0 then
+                self.x = self.x - 5
+            end
+            if valueX > 0 then
+                self.x = self.x + 5
+            end
+            --[[
+            if valueY < 0 then
+                self.y = self.y + 5
+            end
+            if valueY > 0 then
+                self.y = self.y - 5
+            end]]--
+
         end
     end
 

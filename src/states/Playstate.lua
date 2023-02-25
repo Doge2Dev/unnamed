@@ -1,6 +1,7 @@
 playstate = {}
 
 playstate.levelToLoad = "nip-trip"
+playstate.bpm = 87.0
 
 function playstate:init()
     player = require 'src.Player'
@@ -9,18 +10,24 @@ function playstate:init()
     eventhandler = require 'src.components.EventHandler'
     Math = require 'src.Math'
     shoot = require 'src.events.Shoot'
+    saw = require 'src.events.Saw'
     timer = require 'libraries.timer'
+
+    conductor.setBPM(playstate.bpm)
+    Beat = conductor.songPositionInBeats
+    Step = conductor.songPositionInSteps
     
     Camera = camera(love.graphics.getWidth() / 2 , love.graphics.getHeight() / 2)
     bg = love.graphics.newImage("resources/images/bgs/game_bg5.png")
-    tileImage, tileQuads = atlasparser.getQuads("atlas_sheet1")
+    fadebg = love.graphics.newImage("resources/images/FX/fade.png")
+    tileImage, tileQuads = atlasparser.getQuads("atlas_sheet2")
 
     -- particle system
     fade = love.graphics.newImage("resources/images/FX/glow.png")
     psystem = love.graphics.newParticleSystem(fade, 1000)
-    psystem:setParticleLifetime(2, 5) -- Particles live at least 2s and at most 5s.
-	psystem:setSizeVariation(1)
-	psystem:setLinearAcceleration(50, 50, 50, 100) -- Randomized movement towards the bottom of the screen.
+    psystem:setParticleLifetime(2) -- Particles live at least 2s and at most 5s.
+	psystem:setSizeVariation(0.5)
+	psystem:setLinearAcceleration(-50, -100, 100, 100) -- Randomized movement towards the bottom of the screen.
 	psystem:setColors(1, 1, 1, 1, 1, 1, 1, 0) -- Fade to transparency.
     
     player:set(0, love.graphics.getHeight() / 2)
@@ -48,6 +55,7 @@ end
 
 function playstate:draw()
     love.graphics.draw(bg, 0, 0, 0, 1.2, 1.2)
+    love.graphics.draw(fadebg, 0, 0, 0, 1.2, 1.2)
     local px, py = player:position()
     effect(function() 
         Camera:attach()
@@ -58,6 +66,8 @@ function playstate:draw()
             for k, Block in ipairs(MapSettings.Blocks) do
                 love.graphics.draw(tileImage, tileQuads[Block.id], Block.x, Block.y)
             end
+            shoot.render()
+            saw.render()
         Camera:detach()
     end)
     conductor.render()
@@ -82,7 +92,7 @@ function playstate:update(elapsed)
             table.remove(MapSettings.Blocks, k)
         end
         if utilities.collision(player:getHitbox(), Block) and isPlayerAlive then
-            psystem:emit(50)
+            psystem:emit(10)
             isPlayerAlive = false
             deathTimer = timer.new()
             print("[COLLISION] block")
@@ -91,7 +101,16 @@ function playstate:update(elapsed)
 
     for k, projectile in pairs(shoot.Shoots) do
         if utilities.collision(player:getHitbox(), projectile) and isPlayerAlive then
-            psystem:emit(50)
+            psystem:emit(10)
+            isPlayerAlive = false
+            deathTimer = timer.new()
+            print("[COLLISION] projectile")
+        end
+    end
+
+    for k, saw in pairs(saw.Saws) do
+        if utilities.collision(player:getHitbox(), saw) and isPlayerAlive then
+            psystem:emit(10)
             isPlayerAlive = false
             deathTimer = timer.new()
             print("[COLLISION] projectile")
@@ -106,6 +125,8 @@ function playstate:update(elapsed)
     end
 
     psystem:update(elapsed)
+    shoot.update(elapsed)
+    saw.update(elapsed)
 end
 -------------------------------
 
@@ -113,8 +134,20 @@ function cameraBump(amount)
     camZoom = amount
 end
 
-function newBullet(y, speed)
-    
+function newBullet(amount)
+    shoot.new(
+        love.graphics.getWidth() + editorOffset, 
+        math.random(1, love.graphics.getHeight()), 
+        math.random(1, 4)
+    )
+end
+
+function newSaw(y)
+    saw.new(
+        love.graphics.getWidth() + editorOffset, 
+        math.random(1, love.graphics.getHeight()), 
+        math.random(1,3), 0.3
+    )
 end
 
 return playstate

@@ -2,8 +2,6 @@ credits = {}
 
 function credits:init()
     -- sloow esteve por aqui --
-    Timer = require 'libraries.timer'
-    transition.newOut(2)
 
     creditss = {
         guys = {
@@ -50,11 +48,9 @@ function credits:draw()
     love.graphics.draw(creditss.guys[cur].pic, love.graphics.getWidth() / 2 - creditss.guys[cur].pic:getWidth() / 2, 200)
     love.graphics.draw(studioLogo, 1060, 580, 0, 0.2, 0.2)
 
-    transition.render()
 end
 
 function credits:update(elapsed)
-    transition.update(elapsed)
 
     -- VAI TOMA NO CU PIRANHAAAAAAAA --
 

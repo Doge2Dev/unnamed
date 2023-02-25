@@ -26,7 +26,6 @@ function levelselect:init()
     npicon = love.graphics.newImage("resources/images/levelselect/nitrobase_prism.png")
     levelIconsIndex = {4, 3, 1, 2}
 
-    transition.newOut(2)
 end
 
 function levelselect:draw()
@@ -51,12 +50,9 @@ function levelselect:draw()
             love.graphics.draw(npicon, 1190, 790, 0, 1, 1, npicon:getWidth(), npicon:getHeight())
         end,
     })
-    transition.render()
 end
 
 function levelselect:update(elapsed)
-    onComplete = transition.update(elapsed)
-
     if currentLevel < 1 then
         currentLevel = #levels
     end
@@ -70,18 +66,14 @@ function levelselect:update(elapsed)
 end
 
 function levelselect:keypressed(k, code)
-    if not isTransitioning then
-        if k == Controls.Keyboard.SELECT_LEFT then
-            currentLevel = currentLevel - 1
-        end
-        if k == Controls.Keyboard.SELECT_RIGHT then
+    if k == Controls.Keyboard.SELECT_LEFT then
+        currentLevel = currentLevel - 1
+    end
+    if k == Controls.Keyboard.SELECT_RIGHT then
             currentLevel = currentLevel + 1
-        end
-        if k == Controls.Keyboard.BACK then
-            isTransitioning = true
-            transition.newIn(2)
-            
-        end
+    end
+    if k == Controls.Keyboard.BACK then
+        gamestate.switch(states.Menu)
     end
 end
 
@@ -92,6 +84,9 @@ function levelselect:gamepadpressed(jstk, button)
     end
     if joystick:isGamepadDown(Controls.Gamepad.SELECT_RIGHT) then
         currentLevel = currentLevel + 1
+    end
+    if joystick:isGamepadDown(Controls.Gamepad.BACK) then
+        gamestate.switch(states.Menu)
     end
 end
 

@@ -73,7 +73,7 @@ function UIState.load()
     for i = 1, #tileQuads, 1 do
         xb = xb + 36
         tileButton = gui:button("", {xb, y=12, w=32, h=32})
-        tileButton:setimage("resources/images/icons/atlas_sheet3/tileicon" .. i .. ".png")
+        tileButton:setimage("resources/images/icons/atlas_sheet/tileicon" .. i .. ".png")
         function tileButton.click(this, x, y)
             currentBlock = i
         end

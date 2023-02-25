@@ -9,12 +9,10 @@ function menustate:init()
     utilities = require 'src.Utilities'
     tween = require 'libraries.tween'
 
+    conductor.stop()
     conductor.load("abstraction")
     conductor.setBPM(122)
-    audioPlay = conductor.play()
-    if not audioPlay then
-        audioPlay = conductor.play()
-    end
+    conductor.play()
 
     MenuItemsIndex = {7,5,3,1}
     MenuItemsIndexSelected = {8,6,4,2}
@@ -32,7 +30,6 @@ function menustate:init()
     bg = love.graphics.newImage("resources/images/bgs/game_bg5.png")
     logo = love.graphics.newImage("resources/images/menu/logo.png")
     studioLogo = love.graphics.newImage("resources/images/logoTransparent.png")
-    transition.newIn(2)
 end
 
 function menustate:draw()
@@ -51,37 +48,24 @@ function menustate:draw()
     love.graphics.draw(logo, 800, 280, 0, 
     LogoSize, LogoSize, 
     logo:getWidth() / 2, logo:getHeight() / 2)
-    love.graphics.draw(studioLogo, 1060, 580, 0, 0.2, 0.2)
-    transition.render()
+    love.graphics.draw(studioLogo, 1090, 600, 0, 0.15, 0.15)
+    conductor.render()
 end
 
 function menustate:update(elapsed)
     MenuItemsIndex = {7,5,3,1}
     MenuItemsIndex[CurrentItem] = MenuItemsIndexSelected[CurrentItem]
 
+    if not conductor.getAudio():isPlaying() then
+        conductor.stop()
+        conductor.play()
+    end
+
     if CurrentItem < 1 then
         CurrentItem = #MenuItemsIndex
     end
     if CurrentItem > #MenuItemsIndex then
         CurrentItem = 1
-    end
-
-    if Selected then
-        onComplete = transition.update(elapsed)
-    end
-    if onComplete then
-        if CurrentItem == 1 then
-            gamestate.switch(states.LevelSelect)
-        end
-        if CurrentItem == 2 then
-            gamestate.switch(states.Playlist)
-        end
-        if CurrentItem == 3 then
-            gamestate.switch(states.Options)
-        end
-        if CurrentItem == 4 then
-            gamestate.switch(states.Credits)
-        end
     end
     conductor.update()
 
@@ -96,21 +80,28 @@ function menustate:update(elapsed)
 end
 
 function menustate:keypressed(k, code)
-    if not enterPressed then
-        if k == Controls.Keyboard.ACCEPT then
-            enterPressed = true
-        end
+    if k == Controls.Keyboard.SELECT_UP then
+        CurrentItem = CurrentItem - 1
     end
-    if not Selected then
-        if k == Controls.Keyboard.SELECT_UP then
-            CurrentItem = CurrentItem - 1
+    if k == Controls.Keyboard.SELECT_DOWN then
+        CurrentItem = CurrentItem + 1
+    end
+    if k == "7" then
+        conductor.stop()
+        gamestate.switch(states.LevelEditor)
+    end
+    if k == Controls.Keyboard.ACCEPT then
+        if CurrentItem == 1 then
+            gamestate.switch(states.LevelSelect)
         end
-        if k == Controls.Keyboard.SELECT_DOWN then
-            CurrentItem = CurrentItem + 1
+        if CurrentItem == 2 then
+            gamestate.switch(states.Playlist)
         end
-        if k == Controls.Keyboard.ACCEPT then
-            transition.newIn(2)
-            Selected = true
+        if CurrentItem == 3 then
+            gamestate.switch(states.Options)
+        end
+        if CurrentItem == 4 then
+            gamestate.switch(states.Credits)
         end
     end
 end

@@ -12,7 +12,7 @@ function leveleditor:init()
     }
 
     bg = love.graphics.newImage("resources/images/bgs/game_bg5.png")
-    tileImage, tileQuads = atlasparser.getQuads("atlas_sheet3")
+    tileImage, tileQuads = atlasparser.getQuads("atlas_sheet")
     currentBlock = 1
     marker = {x=0, y=0}
     canPlace = true

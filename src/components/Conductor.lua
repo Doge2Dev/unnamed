@@ -20,9 +20,13 @@ function conductor.load(filename)
     conductor.dspSongTime = audio:tell("seconds")
 end
 
+function conductor.getAudio()
+    return audio
+end
+
 function conductor.setPosition(seconds)
-    if audio ~= nil then
-        audio:seek(seconds, "seconds")
+    if conductor.audio ~= nil then
+        conductor.audio:seek(seconds, "seconds")
         return true
     else
         return false

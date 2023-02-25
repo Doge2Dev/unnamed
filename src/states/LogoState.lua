@@ -15,14 +15,17 @@ function logostate:init()
 end
 
 function logostate:draw()
-    love.graphics.draw(
-        studioLogo, 
-        love.graphics.getWidth() / 2, 
-        love.graphics.getHeight() / 2, 0, 
-        studioLogoSize, 
-        studioLogoSize, 
-        studioLogo:getWidth() / 2,
-        studioLogo:getHeight() / 2
+    effect(
+        function()
+            love.graphics.draw(
+                studioLogo, 
+                love.graphics.getWidth() / 2, 
+                love.graphics.getHeight() / 2, 0, 
+                studioLogoSize, studioLogoSize, 
+                studioLogo:getWidth() / 2,
+                studioLogo:getHeight() / 2
+            )
+        end
     )
 end
 
