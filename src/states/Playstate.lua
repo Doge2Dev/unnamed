@@ -109,7 +109,7 @@ function playstate:update(elapsed)
     end
 
     for k, saw in pairs(saw.Saws) do
-        if utilities.collision(player:getHitbox(), saw) and isPlayerAlive then
+        if utilities.collision(player:getHitbox(), saw.hitbox) and isPlayerAlive then
             psystem:emit(10)
             isPlayerAlive = false
             deathTimer = timer.new()
