@@ -52,17 +52,22 @@ function love.load()
         local joysticks = love.joystick.getJoysticks()
         joystick = joysticks[1]
     end
+    if Settings[3] then
+        love.graphics.setDefaultFilter("linear", "linear")
+    else
+        love.graphics.setDefaultFilter("nearest", "nearest")
+    end
 
     effect = moonshine(moonshine.effects.glow)
     effect.glow.min_luma = 0.3
-    effect.glow.strength = 5 
+    effect.glow.strength = 5
+    
+    if Settings[1] then
+        effect.enable("glow")
+    else
+        effect.disable("glow")
+    end
 
     gamestate.registerEvents()
     gamestate.switch(states.Logostate)
-end
-
-function love.draw() 
-end
-
-function love.update(dt)
 end

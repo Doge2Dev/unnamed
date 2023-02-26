@@ -3,6 +3,6 @@ function love.conf(w)
     w.window.height         =       768
     w.window.title          =       "ProjectNX"
     w.console               =       true
-    w.identity              =       "projectnx"
+    w.identity              =       "com.projectnx"
     w.window.resizable      =       false 
 end

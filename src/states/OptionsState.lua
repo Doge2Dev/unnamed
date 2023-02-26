@@ -10,7 +10,7 @@ function options:init()
         },
         {
             option = "Controller mode",
-            description = "Enable controller support"
+            description = "Enable controller support (Require restart)"
         },
         {
             option = "Antialiasing",
@@ -31,9 +31,9 @@ end
 
 function options:draw()
     local y = 300
-    love.graphics.draw(bg, 0, 0, 0, 1.3, 1.3)
     effect(
         function()
+            love.graphics.draw(bg, 0, 0, 0, 1.3, 1.3)
             love.graphics.print("Options", quicksand, 30, 30)
             love.graphics.draw(cursor, 10, cursorY + 7)
             for optionItem = 1, #Options, 1 do
@@ -62,6 +62,16 @@ function options:update(elapsed)
     end
     if currentOption > #Options then
         currentOption = #Options
+    end
+    if Settings[1] then
+        effect.enable("glow")
+    else
+        effect.disable("glow")
+    end
+    if Settings[3] then
+        love.graphics.setDefaultFilter("linear", "linear")
+    else
+        love.graphics.setDefaultFilter("nearest", "nearest")
     end
 end
 
