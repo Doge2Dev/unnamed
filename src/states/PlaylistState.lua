@@ -29,7 +29,7 @@ function playlist:draw()
     local y = 160
 
     effect(function()
-        love.graphics.draw(cursor, 10, cursor_y + 5)
+        love.graphics.draw(cursor, 10, cursor_y + 7)
         for i = 1, #songlist, 1 do
                 love.graphics.print(songlist[i], 80, y)
             

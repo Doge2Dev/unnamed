@@ -2,6 +2,10 @@ credits = {}
 
 function credits:init()
     -- sloow esteve por aqui --
+    Controls = require 'src.components.Controls'
+
+    -- chocolate esteve por aqui --
+
 
     creditss = {
         guys = {
@@ -87,7 +91,7 @@ function credits:update(elapsed)
 end
 
 function credits:keypressed(k)
-    if k == 'left' then 
+    if k == Controls.Keyboard.SELECT_LEFT then 
         roleee = roleee - 1
         if roleee < 1 then 
             roleee = 1
@@ -106,7 +110,7 @@ function credits:keypressed(k)
             end
         end
     end
-    if k == 'right' then 
+    if k == Controls.Keyboard.SELECT_RIGHT then 
         roleee = roleee + 1
         if roleee > 9 then 
             roleee = 9
@@ -129,18 +133,18 @@ function credits:keypressed(k)
             end
         end
     end
-    if k == 'up' then 
+    if k == Controls.Keyboard.SELECT_UP then 
         cur = cur - 1
     end
-    if k == 'down' then 
+    if k == Controls.Keyboard.SELECT_DOWN then 
         cur = cur + 1
     end
 
-    if k == 'return' then 
+    if k == Controls.Keyboard.ACCEPT then 
         love.system.openURL(creditss.guys[cur].link)
     end
 
-    if k == "escape" then 
+    if k == Controls.Keyboard.BACK then 
         gamestate.switch(states.Menu)
     end
 end

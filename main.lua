@@ -30,10 +30,23 @@ function love.load()
 
     -- settings --
     Settings = {
-        visuals = {
-            VFX = true
-        }
+        true,   -- glow
+        true,   -- controller
+        true,   -- sound effects
+        true,   -- Antialiasing
     }
+
+    -- if not exist create the file --
+    optionsdata = love.filesystem.getInfo("options.json")
+    if optionsdata == nil then
+        file = love.filesystem.newFile("options.json", "w")
+        file:write(json.encode(Settings))
+        file:close()
+    end
+
+    -- load the file --
+    data = love.filesystem.read("options.json")
+    Settings = json.decode(data)
 
     -- allowing joysticks and gamepads --
     local joysticks = love.joystick.getJoysticks()
@@ -47,7 +60,7 @@ function love.load()
     gamestate.switch(states.Logostate)
 end
 
-function love.draw()
+function love.draw() 
 end
 
 function love.update(dt)
