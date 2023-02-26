@@ -32,7 +32,6 @@ function love.load()
     Settings = {
         true,   -- glow
         true,   -- controller
-        true,   -- sound effects
         true,   -- Antialiasing
     }
 
@@ -49,8 +48,10 @@ function love.load()
     Settings = json.decode(data)
 
     -- allowing joysticks and gamepads --
-    local joysticks = love.joystick.getJoysticks()
-	joystick = joysticks[1]
+    if Settings[2] then
+        local joysticks = love.joystick.getJoysticks()
+        joystick = joysticks[1]
+    end
 
     effect = moonshine(moonshine.effects.glow)
     effect.glow.min_luma = 0.3

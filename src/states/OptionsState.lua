@@ -6,22 +6,14 @@ function options:init()
     Options = {
         {
             option = "Glow",
-            value = true,
             description = "Enable glow FX on hud and tiles"
         },
         {
             option = "Controller mode",
-            value = true,
             description = "Enable controller support"
         },
         {
-            option = "Sound Effects",
-            value = true,
-            description = "Enable Sound effects"
-        },
-        {
             option = "Antialiasing",
-            value = true,
             description = "Allow Antialiasing"
         },
     }
@@ -42,6 +34,7 @@ function options:draw()
     love.graphics.draw(bg, 0, 0, 0, 1.3, 1.3)
     effect(
         function()
+            love.graphics.print("Options", quicksand, 30, 30)
             love.graphics.draw(cursor, 10, cursorY + 7)
             for optionItem = 1, #Options, 1 do
                     love.graphics.print(
