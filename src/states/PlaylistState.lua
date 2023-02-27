@@ -1,7 +1,6 @@
 playlist = {}
 
 function playlist:init()
-    transition = require 'src.Transition'
     conductor = require 'src.components.Conductor'
     currentSelection = 1
     songlist = {
@@ -25,10 +24,10 @@ function playlist:init()
 end
 
 function playlist:draw()
-    love.graphics.draw(bg, 0, 0, 0, 1.2, 1.2)
     local y = 160
 
     effect(function()
+        love.graphics.draw(bg, 0, 0, 0, 1.2, 1.2)
         love.graphics.draw(cursor, 10, cursor_y + 7)
         for i = 1, #songlist, 1 do
                 love.graphics.print(songlist[i], 80, y)
@@ -67,13 +66,32 @@ function playlist:keypressed(k)
     if k == Controls.Keyboard.ACCEPT then
         conductor.stop()
         playstate.levelToLoad = songlist[currentSelection]
-        playstate.bpm = songlistBpm[currentSelection]
         gamestate.switch(states.Playstate)
     end
     if k == Controls.Keyboard.BACK then
         gamestate.switch(states.Menu)
     end
-    
+end
+
+function playlist:gamepadpressed(jstk, button)
+    if joystick ~= nil then
+        if joystick:isGamepadDown(Controls.Gamepad.SELECT_UP) then
+            cursor_y = cursor_y - 50
+            currentSelection = currentSelection - 1
+        end
+        if joystick:isGamepadDown(Controls.Gamepad.SELECT_DOWN) then
+            cursor_y = cursor_y + 50
+            currentSelection = currentSelection + 1
+        end
+        if joystick:isGamepadDown(Controls.Gamepad.ACCEPT) then
+            conductor.stop()
+            playstate.levelToLoad = songlist[currentSelection]
+            gamestate.switch(states.Playstate)
+        end
+        if joystick:isGamepadDown(Controls.Gamepad.BACK) then
+            gamestate.switch(states.Menu)
+        end
+    end
 end
 
 return playlist

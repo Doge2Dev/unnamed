@@ -11,6 +11,9 @@ function love.load()
     moonshine = require 'libraries.moonshine'
     debugcomponent = require 'src.components.Debug'
     discordrpc = require 'libraries.discordRPC'
+    transition = require 'libraries.TransitionMgr'
+
+    math.randomseed(os.clock())
 
     quicksand = love.graphics.newFont("resources/fonts/quicksand-light.ttf", 20)
     love.graphics.setFont(quicksand)

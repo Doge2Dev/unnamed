@@ -97,4 +97,28 @@ function options:keypressed(k)
     end
 end
 
+function options:gamepadpressed(jstk, button)
+    if joystick ~= nil then
+        if joystick:isGamepadDown(Controls.Gamepad.SELECT_UP) then
+            cursorY = cursorY - 50
+            currentOption = currentOption - 1
+        end
+        if joystick:isGamepadDown(Controls.Gamepad.SELECT_DOWN) then
+            cursorY = cursorY + 50
+            currentOption = currentOption + 1
+        end
+        if joystick:isGamepadDown(Controls.Gamepad.ACCEPT) then
+            if Settings[currentOption] then
+                Settings[currentOption] = false
+            else
+                Settings[currentOption] = true
+            end
+        end
+        if joystick:isGamepadDown(Controls.Gamepad.BACK) then
+            love.filesystem.write("options.json", json.encode(Settings))
+            gamestate.switch(states.Menu)
+        end
+    end
+end
+
 return options

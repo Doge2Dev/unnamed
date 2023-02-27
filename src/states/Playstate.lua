@@ -11,7 +11,9 @@ function playstate:init()
     Math = require 'src.Math'
     shoot = require 'src.events.Shoot'
     saw = require 'src.events.Saw'
+    laser = require 'src.events.Laser'
     timer = require 'libraries.timer'
+    gamepad = require 'src.archive.Gamepad'
 
     conductor.setBPM(playstate.bpm)
     Beat = conductor.songPositionInBeats
@@ -54,10 +56,9 @@ function playstate:init()
 end
 
 function playstate:draw()
-    love.graphics.draw(bg, 0, 0, 0, 1.2, 1.2)
-    love.graphics.draw(fadebg, 0, 0, 0, 1.2, 1.2)
     local px, py = player:position()
     effect(function() 
+        love.graphics.draw(bg, 0, 0, 0, 1.2, 1.2)
         Camera:attach()
             love.graphics.draw(psystem, px, py)
             if isPlayerAlive then
@@ -69,6 +70,8 @@ function playstate:draw()
             shoot.render()
             saw.render()
         Camera:detach()
+        laser.render()
+        love.graphics.draw(fadebg, 0, 0, 0, 1.2, 1.2)
     end)
     conductor.render()
 end
@@ -117,9 +120,20 @@ function playstate:update(elapsed)
         end
     end
 
+    for k, laser in pairs(laser.Lasers) do
+        if utilities.collision(player:getHitbox(), laser.hitbox) and isPlayerAlive and laser.allowCollision then
+            psystem:emit(10)
+            isPlayerAlive = false
+            deathTimer = timer.new()
+            print("[COLLISION] laser")
+        end
+        
+    end
+
     if not isPlayerAlive then
         deathTimer:update(elapsed)
         deathTimer:after(3, function()
+            death:init()
             gamestate.switch(states.DeathState)
         end)
     end
@@ -127,6 +141,7 @@ function playstate:update(elapsed)
     psystem:update(elapsed)
     shoot.update(elapsed)
     saw.update(elapsed)
+    laser.update(elapsed)
 end
 -------------------------------
 
@@ -148,6 +163,10 @@ function newSaw()
         math.random(1, love.graphics.getHeight()), 
         math.random(1,3), 1
     )
+end
+
+function newLaser(time)
+    laser.new(math.random(64, love.graphics.getHeight() - 64), time)
 end
 
 return playstate

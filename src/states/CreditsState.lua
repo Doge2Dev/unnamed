@@ -149,4 +149,65 @@ function credits:keypressed(k)
     end
 end
 
+function credits:gamepadpressed(jstk, button)
+    if joystick ~= nil then
+        if joystick:isGamepadDown(Controls.Gamepad.SELECT_LEFT) then 
+            roleee = roleee - 1
+            if roleee < 1 then 
+                roleee = 1
+            end
+            if creditss.guys[roleee].role == 'ARTISTS' then 
+                if roleee == 3 then 
+                    roleee = 1
+                end
+            elseif creditss.guys[roleee].role == 'MUSICIANS' then 
+                if roleee == 7 then 
+                    roleee = 3
+                end
+            elseif creditss.guys[roleee].role == 'DESIGNER' then 
+                if roleee == 9 then 
+                    roleee = 7
+                end
+            end
+        end
+        if joystick:isGamepadDown(Controls.Gamepad.SELECT_RIGHT) then 
+            roleee = roleee + 1
+            if roleee > 9 then 
+                roleee = 9
+            end
+            if creditss.guys[roleee].role == 'CODERS' then
+                if roleee > 1 then
+                    roleee = 3 
+                end
+            elseif creditss.guys[roleee].role == 'ARTISTS' then 
+                if roleee > 3 then 
+                    roleee = 7
+                end
+            elseif creditss.guys[roleee].role == 'MUSICIANS' then 
+                if roleee > 7 then 
+                    roleee = 9
+                end
+            elseif creditss.guys[roleee].role == 'DESIGNER' then 
+                if roleee > 9 then 
+                    roleee = 9
+                end
+            end
+        end
+        if joystick:isGamepadDown(Controls.Gamepad.SELECT_UP) then 
+            cur = cur - 1
+        end
+        if joystick:isGamepadDown(Controls.Gamepad.SELECT_DOWN) then 
+            cur = cur + 1
+        end
+    
+        if joystick:isGamepadDown(Controls.Gamepad.ACCEPT) then 
+            love.system.openURL(creditss.guys[cur].link)
+        end
+    
+        if joystick:isGamepadDown(Controls.Gamepad.BACK) then 
+            gamestate.switch(states.Menu)
+        end
+    end 
+end
+
 return credits

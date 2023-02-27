@@ -1,7 +1,6 @@
 levelselect = {}
 
 function levelselect:init()
-    transition = require 'src.Transition'
     atlasparser = require 'src.components.AtlasParser'
 
     arrowImg, arrowQuads = atlasparser.getQuads("levelselect/arrows")

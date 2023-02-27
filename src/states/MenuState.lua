@@ -2,7 +2,6 @@ menustate = {}
 
 function menustate:init()
     atlasparser = require 'src.components.AtlasParser'
-    transition = require 'src.Transition'
     menuFX = require 'src.states.resources.MenuStateFX'
     conductor = require 'src.components.Conductor'
     Math = require 'src.Math'
@@ -109,14 +108,29 @@ function menustate:keypressed(k, code)
 end
 
 function menustate:gamepadpressed(jstk, button)
-    if joystick:isGamepadDown(Controls.Gamepad.SELECT_UP) then
-        CurrentItem = CurrentItem - 1
-    end
-    if joystick:isGamepadDown(Controls.Gamepad.SELECT_DOWN) then
-        CurrentItem = CurrentItem + 1
-    end
-    if joystick:isGamepadDown(Controls.Gamepad.ACCEPT) then
-        Selected = true
+    if joystick ~= nil then
+        if joystick:isGamepadDown(Controls.Gamepad.SELECT_UP) then
+            CurrentItem = CurrentItem - 1
+        end
+        if joystick:isGamepadDown(Controls.Gamepad.SELECT_DOWN) then
+            CurrentItem = CurrentItem + 1
+        end
+        if joystick:isGamepadDown(Controls.Gamepad.ACCEPT) then
+            Switch(CurrentItem, {
+                [1] = function()
+                    gamestate.switch(states.LevelSelect)
+                end,
+                [2] = function()
+                    gamestate.switch(states.Playlist)
+                end,
+                [3] = function()
+                    gamestate.switch(states.OptionsState)
+                end,
+                [4] = function()
+                    gamestate.switch(states.Credits)
+                end
+            })
+        end
     end
 end
 
