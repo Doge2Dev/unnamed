@@ -66,9 +66,11 @@ function playlist:keypressed(k)
     if k == Controls.Keyboard.ACCEPT then
         conductor.stop()
         playstate.levelToLoad = songlist[currentSelection]
+        --playstate:init()
         gamestate.switch(states.Playstate)
     end
     if k == Controls.Keyboard.BACK then
+        menustate:init()
         gamestate.switch(states.Menu)
     end
 end

@@ -22,7 +22,7 @@ function playstate:init()
     Camera = camera(love.graphics.getWidth() / 2 , love.graphics.getHeight() / 2)
     bg = love.graphics.newImage("resources/images/bgs/game_bg5.png")
     fadebg = love.graphics.newImage("resources/images/FX/fade.png")
-    tileImage, tileQuads = atlasparser.getQuads("atlas_sheet2")
+    tileImage, tileQuads = atlasparser.getQuads("atlas_sheet1")
 
     -- particle system
     fade = love.graphics.newImage("resources/images/FX/glow.png")
@@ -47,9 +47,6 @@ function playstate:init()
     eventhandler.load(playstate.levelToLoad)
     MapSettings = json.decode(raw)
     MapData = json.decode(rawData)
-
-    conductor.bpm = MapData.bpm
-
 
     editorOffset = 0
     conductor.play()

@@ -12,7 +12,7 @@ function laser.new(y, time)
     Laser.isFading = false
     Laser.allowCollision = false
     Laser.hitbox = {}
-    Laser.hitbox.x = 0
+    Laser.hitbox.x = player:position() - 300
     Laser.hitbox.y = Laser.y + 20
     Laser.hitbox.w = love.graphics.getWidth()
     Laser.hitbox.h = 24

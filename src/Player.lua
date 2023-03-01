@@ -36,6 +36,19 @@ function player:update(elapsed)
         end
     end
 
+    if self.x < math.floor(editorOffset) - love.graphics.getWidth() / 2 then
+        self.x = self.x + 5
+    end
+    if self.x + self.hitbox.w > math.floor(editorOffset) + love.graphics.getWidth() / 2 then
+        self.x = self.x - 5
+    end
+    if self.y < 0 then
+        self.y = self.y + 5
+    end
+    if self.y + self.hitbox.h > love.graphics.getHeight() then
+        self.y = self.y - 5
+    end
+
     if isPlayerAlive then
         if joystick ~= nil then
             if joystick:isGamepadDown(Controls.Gamepad.UP) then
