@@ -13,7 +13,6 @@ function playstate:init()
     saw = require 'src.events.Saw'
     laser = require 'src.events.Laser'
     timer = require 'libraries.timer'
-    gamepad = require 'src.archive.Gamepad'
     
     Camera = camera(love.graphics.getWidth() / 2 , love.graphics.getHeight() / 2)
     bg = love.graphics.newImage("resources/images/bgs/game_bg5.png")
