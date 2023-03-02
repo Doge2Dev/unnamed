@@ -96,4 +96,17 @@ function playlist:gamepadpressed(jstk, button)
     end
 end
 
+function playlist:gamepadaxis(joystick, axis, value)
+	if axis == "lefty" then
+		if value == -1 then
+            cursor_y = cursor_y - 50
+            currentSelection = currentSelection - 1
+        end
+        if value == 1 then
+            cursor_y = cursor_y + 50
+            currentSelection = currentSelection + 1
+        end
+	end
+end
+
 return playlist

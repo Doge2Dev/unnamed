@@ -12,7 +12,7 @@ conductor.songPositionInSteps = 0
 
 
 function conductor.load(filename)
-    audio = love.audio.newSource("resources/sounds/" .. filename .. ".ogg", "static")
+    audio = love.audio.newSource(filename .. ".ogg", "static")
 
     conductor.secPerBeat = 60.0 / bpm
     conductor.crochet = ((60 / bpm) * 1000)

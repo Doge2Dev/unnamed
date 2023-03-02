@@ -16,7 +16,7 @@ function player:set(x, y)
 end
 
 function player:render()
-    love.graphics.draw(self.img, self.quads[self.AnimFrame], self.x, self.y, 0, 0.5, 0.5, 203, 142)
+    love.graphics.draw(self.img, self.quads[self.AnimFrame], self.x, self.y, 0, 1.5, 1.5, 18, 20)
     love.graphics.rectangle("line", self.hitbox.x, self.hitbox.y, self.hitbox.w, self.hitbox.h)
 end
 
@@ -63,6 +63,9 @@ function player:update(elapsed)
             if joystick:isGamepadDown(Controls.Gamepad.RIGHT) then
                 self.x = self.x + 5
             end
+
+            self.x = self.x + (5 * joystick:getGamepadAxis("leftx"))
+            self.y = self.y + (5 * joystick:getGamepadAxis("lefty"))
         end
     end
 
@@ -74,7 +77,7 @@ function player:update(elapsed)
     if self.AnimFrameUpdate > 20 then
         self.AnimFrame = self.AnimFrame + 1
         self.AnimFrameUpdate = 0
-        if self.AnimFrame > 2 then
+        if self.AnimFrame > 3 then
             self.AnimFrame = 1
         end
     end

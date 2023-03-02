@@ -1,6 +1,5 @@
 {
     "levelname" : "nip-trip",
-    "bpm" : 87,
-    "speed" : 2.1,
-    "levelColor" : [255, 0, 0, 255]
+    "bpm" : 87.0,
+    "speed" : 2.1
 }

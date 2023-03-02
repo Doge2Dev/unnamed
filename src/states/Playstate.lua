@@ -14,10 +14,6 @@ function playstate:init()
     laser = require 'src.events.Laser'
     timer = require 'libraries.timer'
     gamepad = require 'src.archive.Gamepad'
-
-    conductor.setBPM(playstate.bpm)
-    Beat = conductor.songPositionInBeats
-    Step = conductor.songPositionInSteps
     
     Camera = camera(love.graphics.getWidth() / 2 , love.graphics.getHeight() / 2)
     bg = love.graphics.newImage("resources/images/bgs/game_bg5.png")
@@ -41,12 +37,14 @@ function playstate:init()
 
     camZoom = 0.5
 
-    conductor.load(playstate.levelToLoad)
+    conductor.load("resources/data/maps/" .. playstate.levelToLoad .. "/song")
     raw = love.filesystem.read("resources/data/maps/" .. playstate.levelToLoad .. "/map.lvl")
     rawData = love.filesystem.read("resources/data/maps/" .. playstate.levelToLoad .. "/info.data")
     eventhandler.load(playstate.levelToLoad)
     MapSettings = json.decode(raw)
     MapData = json.decode(rawData)
+
+    conductor.setBPM(MapData.bpm)
 
     editorOffset = 0
     conductor.play()
@@ -88,9 +86,6 @@ function playstate:update(elapsed)
     Camera:zoomTo(camZoom)
 
     for k, Block in pairs(MapSettings.Blocks) do
-        if Block.x < 0 then
-            table.remove(MapSettings.Blocks, k)
-        end
         if utilities.collision(player:getHitbox(), Block) and isPlayerAlive then
             psystem:emit(10)
             isPlayerAlive = false
@@ -124,7 +119,6 @@ function playstate:update(elapsed)
             deathTimer = timer.new()
             print("[COLLISION] laser")
         end
-        
     end
 
     if not isPlayerAlive then

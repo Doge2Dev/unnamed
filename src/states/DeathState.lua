@@ -6,14 +6,11 @@ function death:init()
     playstate = require 'src.states.Playstate'
 
     conductor.stop()
-    conductor.load("Game_Over")
+    conductor.load("resources/sounds/Game_Over")
 
     conductor.setBPM(115.0)
 
     isPlaying = conductor.play()
-    if not isPlaying then
-        conductor.play()
-    end
 
     warn = love.graphics.newImage("resources/images/GUI/warn.png")
     replay = love.graphics.newImage("resources/images/GUI/replay_btn.png")
@@ -106,13 +103,28 @@ function death:gamepadpressed(jstk, button)
     if joystick:isGamepadDown(Controls.Gamepad.ACCEPT) then
         Switch(CurrentItem, {
             [1] = function()
+                conductor.stop()
+                playstate:init()
                 gamestate.switch(states.Playstate)
             end,
             [2] = function()
+                conductor.stop()
+                menustate:init()
                 gamestate.switch(states.Menu)
             end
         })
     end
+end
+
+function death:gamepadaxis(joystick, axis, value)
+	if axis == "leftx" then
+		if value == -1 then
+            CurrentItem = CurrentItem - 1
+        end
+        if value == 1 then
+            CurrentItem = CurrentItem + 1
+        end
+	end
 end
 
 return death

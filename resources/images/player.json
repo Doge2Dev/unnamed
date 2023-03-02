@@ -1,66 +1,66 @@
 {
 	"frames": [
 		{
-			"filename": "player.png",
+			"filename": "navenova.png",
 			"frame": {
 				"x": 3,
 				"y": 3,
-				"w": 512,
-				"h": 256
+				"w": 69,
+				"h": 54
 			},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {
 				"x": 0,
 				"y": 0,
-				"w": 512,
-				"h": 256
+				"w": 69,
+				"h": 54
 			},
 			"sourceSize": {
-				"w": 512,
-				"h": 256
+				"w": 69,
+				"h": 54
 			}
 		},
 		{
-			"filename": "player2.png",
+			"filename": "navenovafogao.png",
+			"frame": {
+				"x": 78,
+				"y": 3,
+				"w": 69,
+				"h": 54
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 69,
+				"h": 54
+			},
+			"sourceSize": {
+				"w": 69,
+				"h": 54
+			}
+		},
+		{
+			"filename": "navenovafoguinho.png",
 			"frame": {
 				"x": 3,
-				"y": 265,
-				"w": 512,
-				"h": 256
+				"y": 63,
+				"w": 69,
+				"h": 54
 			},
 			"rotated": false,
 			"trimmed": false,
 			"spriteSourceSize": {
 				"x": 0,
 				"y": 0,
-				"w": 512,
-				"h": 256
+				"w": 69,
+				"h": 54
 			},
 			"sourceSize": {
-				"w": 512,
-				"h": 256
-			}
-		},
-		{
-			"filename": "player3.png",
-			"frame": {
-				"x": 521,
-				"y": 3,
-				"w": 512,
-				"h": 256
-			},
-			"rotated": false,
-			"trimmed": false,
-			"spriteSourceSize": {
-				"x": 0,
-				"y": 0,
-				"w": 512,
-				"h": 256
-			},
-			"sourceSize": {
-				"w": 512,
-				"h": 256
+				"w": 69,
+				"h": 54
 			}
 		}
 	],
@@ -70,8 +70,8 @@
 		"image": "spritesheet.png",
 		"format": "RGBA8888",
 		"size": {
-			"w": 1036,
-			"h": 524
+			"w": 150,
+			"h": 120
 		},
 		"scale": "1"
 	}

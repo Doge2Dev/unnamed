@@ -89,4 +89,15 @@ function levelselect:gamepadpressed(jstk, button)
     end
 end
 
+function levelselect:gamepadaxis(joystick, axis, value)
+	if axis == "leftx" then
+		if value == -1 then
+            currentLevel = currentLevel - 1
+        end
+        if value == 1 then
+            currentLevel = currentLevel + 1
+        end
+	end
+end
+
 return levelselect

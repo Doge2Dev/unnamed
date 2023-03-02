@@ -9,7 +9,7 @@ function menustate:init()
     tween = require 'libraries.tween'
 
     conductor.stop()
-    conductor.load("abstraction")
+    conductor.load("resources/sounds/abstraction")
     conductor.setBPM(122)
     conductor.play()
 
@@ -48,7 +48,6 @@ function menustate:draw()
     LogoSize, LogoSize, 
     logo:getWidth() / 2, logo:getHeight() / 2)
     love.graphics.draw(studioLogo, 1090, 600, 0, 0.15, 0.15)
-    conductor.render()
 end
 
 function menustate:update(elapsed)
@@ -132,6 +131,17 @@ function menustate:gamepadpressed(jstk, button)
             })
         end
     end
+end
+
+function menustate:gamepadaxis(joystick, axis, value)
+	if axis == "lefty" then
+		if value == -1 then
+            CurrentItem = CurrentItem - 1
+        end
+        if value == 1 then
+            CurrentItem = CurrentItem + 1
+        end
+	end
 end
 
 --------------------------------------------------

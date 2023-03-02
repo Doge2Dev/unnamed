@@ -121,4 +121,17 @@ function options:gamepadpressed(jstk, button)
     end
 end
 
+function options:gamepadaxis(joystick, axis, value)
+	if axis == "lefty" then
+		if value == -1 then
+            cursorY = cursorY - 50
+            currentOption = currentOption - 1
+        end
+        if value == 1 then
+            cursorY = cursorY + 50
+            currentOption = currentOption + 1
+        end
+	end
+end
+
 return options
