@@ -1,17 +1,10 @@
 playlist = {}
 
-function playlist:init()
+function playlist:enter()
     conductor = require 'src.components.Conductor'
     currentSelection = 1
     songlist = {
-        "dubnix",
-        "neon-code",
         "nip-trip",
-    }
-    songlistBpm = {
-        85,
-        87,
-        87,
     }
 
     quicksand = love.graphics.newFont("resources/fonts/quicksand-light.ttf", 40)
@@ -88,6 +81,7 @@ function playlist:gamepadpressed(jstk, button)
         if joystick:isGamepadDown(Controls.Gamepad.ACCEPT) then
             conductor.stop()
             playstate.levelToLoad = songlist[currentSelection]
+            --playstate:init()
             gamestate.switch(states.Playstate)
         end
         if joystick:isGamepadDown(Controls.Gamepad.BACK) then

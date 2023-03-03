@@ -1,6 +1,6 @@
 menustate = {}
 
-function menustate:init()
+function menustate:enter()
     atlasparser = require 'src.components.AtlasParser'
     menuFX = require 'src.states.resources.MenuStateFX'
     conductor = require 'src.components.Conductor'
@@ -13,8 +13,8 @@ function menustate:init()
     conductor.setBPM(122)
     conductor.play()
 
-    MenuItemsIndex = {7,5,3,1}
-    MenuItemsIndexSelected = {8,6,4,2}
+    MenuItemsIndex = {9,7,5,3,1}
+    MenuItemsIndexSelected = {10,8,6,4,2}
 
     lastSavedBeat = conductor.songPositionInBeats
 
@@ -41,7 +41,7 @@ function menustate:draw()
     for i = 1, #MenuItemsIndex, 1 do
         love.graphics.draw(menuItemsImage, 
         MenuItemsQuads[MenuItemsIndex[i]], 30, yp, 0, 0.5, 0.5)
-        yp = yp + 150
+        yp = yp + 120
     end
     menuFX.render()
     love.graphics.draw(logo, 800, 280, 0, 
@@ -51,7 +51,7 @@ function menustate:draw()
 end
 
 function menustate:update(elapsed)
-    MenuItemsIndex = {7,5,3,1}
+    MenuItemsIndex = {9,7,5,3,1}
     MenuItemsIndex[CurrentItem] = MenuItemsIndexSelected[CurrentItem]
 
     if not conductor.getAudio():isPlaying() then
@@ -101,6 +101,9 @@ function menustate:keypressed(k, code)
             end,
             [4] = function()
                 gamestate.switch(states.Credits)
+            end,
+            [5] = function()
+                gamestate.switch(states.Credits)
             end
         })
     end
@@ -126,6 +129,9 @@ function menustate:gamepadpressed(jstk, button)
                     gamestate.switch(states.OptionsState)
                 end,
                 [4] = function()
+                    gamestate.switch(states.Credits)
+                end,
+                [5] = function()
                     gamestate.switch(states.Credits)
                 end
             })

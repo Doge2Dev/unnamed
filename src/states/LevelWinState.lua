@@ -1,18 +1,18 @@
-death = {}
+win = {}
 
-function death:enter()
+function win:enter()
     conductor = require 'src.components.Conductor'
     Math = require 'src.Math'
     playstate = require 'src.states.Playstate'
 
     conductor.stop()
-    conductor.load("resources/sounds/Game_Over")
+    conductor.load("resources/sounds/abstraction")
 
-    conductor.setBPM(115.0)
+    conductor.setBPM(122.0)
 
     isPlaying = conductor.play()
 
-    warn = love.graphics.newImage("resources/images/GUI/warn.png")
+    warn = love.graphics.newImage("resources/images/GUI/missionPassed.png")
     replay = love.graphics.newImage("resources/images/GUI/replay_btn.png")
     tomenu = love.graphics.newImage("resources/images/GUI/tomenu_btn.png")
     gradientFX = love.graphics.newImage("resources/images/FX/gradient.png")
@@ -24,7 +24,7 @@ function death:enter()
     CurrentItem = 1
 end
 
-function death:draw()
+function win:draw()
     effect(
         function()
             love.graphics.draw(bg, 0, 0, 0, 1.3, 1.3)
@@ -47,7 +47,7 @@ function death:draw()
     love.graphics.draw(warn, love.graphics.getWidth() / 2, 200, 0, warnBump, warnBump, warn:getWidth() / 2, warn:getHeight() / 2)
 end
 
-function death:update(elapsed)
+function win:update(elapsed)
     conductor.update(elapsed)
 
     if not conductor.getAudio():isPlaying() then
@@ -70,7 +70,7 @@ function death:update(elapsed)
     warnBump = Math.lerp(warnBump, 1, 0.7)
 end
 
-function death:keypressed(k)
+function win:keypressed(k)
     if k == Controls.Keyboard.SELECT_LEFT then
         CurrentItem = CurrentItem - 1
     end
@@ -81,17 +81,19 @@ function death:keypressed(k)
         Switch(CurrentItem, {
             [1] = function()
                 conductor.stop()
+                playstate:init()
                 gamestate.switch(states.Playstate)
             end,
             [2] = function()
                 conductor.stop()
+                menustate:init()
                 gamestate.switch(states.Menu)
             end
         })
     end
 end
 
-function death:gamepadpressed(jstk, button)
+function win:gamepadpressed(jstk, button)
     if joystick:isGamepadDown(Controls.Gamepad.SELECT_LEFT) then
         CurrentItem = CurrentItem - 1
     end
@@ -102,17 +104,19 @@ function death:gamepadpressed(jstk, button)
         Switch(CurrentItem, {
             [1] = function()
                 conductor.stop()
+                playstate:init()
                 gamestate.switch(states.Playstate)
             end,
             [2] = function()
                 conductor.stop()
+                menustate:init()
                 gamestate.switch(states.Menu)
             end
         })
     end
 end
 
-function death:gamepadaxis(joystick, axis, value)
+function win:gamepadaxis(joystick, axis, value)
 	if axis == "leftx" then
 		if value == -1 then
             CurrentItem = CurrentItem - 1
@@ -123,4 +127,4 @@ function death:gamepadaxis(joystick, axis, value)
 	end
 end
 
-return death
+return win

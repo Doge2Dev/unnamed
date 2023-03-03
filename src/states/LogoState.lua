@@ -1,6 +1,6 @@
 logostate = {}
 
-function logostate:init()
+function logostate:enter()
     Timer = require 'libraries.timer'
     studioLogo = love.graphics.newImage("resources/images/logoTransparent.png")
     studioLogoSize = 0.6

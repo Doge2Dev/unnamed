@@ -1,6 +1,6 @@
 leveleditor = {}
 
-function leveleditor:init()
+function leveleditor:enter()
     local UI = require 'src.states.resources.LevelEditorUIState'
     atlasparser = require 'src.components.AtlasParser'
     conductor = require 'src.components.Conductor'

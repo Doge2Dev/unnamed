@@ -13,8 +13,6 @@ function love.load()
     discordrpc = require 'libraries.discordRPC'
     transition = require 'libraries.TransitionMgr'
 
-    math.randomseed(os.clock())
-
     quicksand = love.graphics.newFont("resources/fonts/quicksand-light.ttf", 20)
     love.graphics.setFont(quicksand)
 
@@ -27,7 +25,8 @@ function love.load()
         OptionsState = require 'src.states.OptionsState',
         Playlist = require 'src.states.PlaylistState',
         Credits = require 'src.states.CreditsState',
-        DeathState = require 'src.states.DeathState'
+        DeathState = require 'src.states.DeathState',
+        LevelWinState = require 'src.states.LevelWinState',
         --EventEditor = require 'src.states.EventEditor'
     }
 
@@ -73,4 +72,8 @@ function love.load()
 
     gamestate.registerEvents()
     gamestate.switch(states.Logostate)
+end
+
+function love.update(elapsed)
+    math.randomseed(os.clock())
 end

@@ -3,7 +3,7 @@ playstate = {}
 playstate.levelToLoad = "nip-trip"
 playstate.bpm = 87.0
 
-function playstate:init()
+function playstate:enter()
     player = require 'src.Player'
     conductor = require 'src.components.Conductor'
     camera = require 'libraries.camera'
@@ -123,7 +123,6 @@ function playstate:update(elapsed)
     if not isPlayerAlive then
         deathTimer:update(elapsed)
         deathTimer:after(3, function()
-            death:init()
             gamestate.switch(states.DeathState)
         end)
     end
@@ -140,11 +139,13 @@ function cameraBump(amount)
 end
 
 function newBullet(amount)
-    shoot.new(
-        love.graphics.getWidth() + editorOffset, 
-        math.random(1, love.graphics.getHeight()), 
-        math.random(1, 4)
-    )
+    for a = 1, amount, 1 do
+        shoot.new(
+            love.graphics.getWidth() + editorOffset, 
+            math.random(1, love.graphics.getHeight()), 
+            math.random(1, 4), math.random(-3, 3)
+        )
+    end
 end
 
 function newSaw()
@@ -157,6 +158,10 @@ end
 
 function newLaser(time)
     laser.new(math.random(64, love.graphics.getHeight() - 64), time)
+end
+
+function levelEnd()
+    gamestate.switch(states.LevelWinState)
 end
 
 return playstate

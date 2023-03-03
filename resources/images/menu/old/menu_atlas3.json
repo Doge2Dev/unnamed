@@ -1,7 +1,7 @@
 {
 	"frames": [
 		{
-			"filename": "credits.png",
+			"filename": "64 Sem Título.png",
 			"frame": {
 				"x": 3,
 				"y": 3,
@@ -22,28 +22,7 @@
 			}
 		},
 		{
-			"filename": "credits-hover.png",
-			"frame": {
-				"x": 521,
-				"y": 3,
-				"w": 512,
-				"h": 256
-			},
-			"rotated": false,
-			"trimmed": false,
-			"spriteSourceSize": {
-				"x": 0,
-				"y": 0,
-				"w": 512,
-				"h": 256
-			},
-			"sourceSize": {
-				"w": 512,
-				"h": 256
-			}
-		},
-		{
-			"filename": "options.png",
+			"filename": "64 Sem Título2.png",
 			"frame": {
 				"x": 3,
 				"y": 265,
@@ -64,28 +43,7 @@
 			}
 		},
 		{
-			"filename": "options-hover.png",
-			"frame": {
-				"x": 521,
-				"y": 265,
-				"w": 512,
-				"h": 256
-			},
-			"rotated": false,
-			"trimmed": false,
-			"spriteSourceSize": {
-				"x": 0,
-				"y": 0,
-				"w": 512,
-				"h": 256
-			},
-			"sourceSize": {
-				"w": 512,
-				"h": 256
-			}
-		},
-		{
-			"filename": "playlist.png",
+			"filename": "65 Sem Título.png",
 			"frame": {
 				"x": 3,
 				"y": 527,
@@ -106,30 +64,9 @@
 			}
 		},
 		{
-			"filename": "playlist-hover.png",
+			"filename": "65 Sem Título2.png",
 			"frame": {
 				"x": 521,
-				"y": 527,
-				"w": 512,
-				"h": 256
-			},
-			"rotated": false,
-			"trimmed": false,
-			"spriteSourceSize": {
-				"x": 0,
-				"y": 0,
-				"w": 512,
-				"h": 256
-			},
-			"sourceSize": {
-				"w": 512,
-				"h": 256
-			}
-		},
-		{
-			"filename": "story.png",
-			"frame": {
-				"x": 1039,
 				"y": 3,
 				"w": 512,
 				"h": 256
@@ -148,10 +85,31 @@
 			}
 		},
 		{
-			"filename": "story-hover.png",
+			"filename": "67 Sem Título.png",
 			"frame": {
-				"x": 1039,
+				"x": 521,
 				"y": 265,
+				"w": 512,
+				"h": 256
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 512,
+				"h": 256
+			},
+			"sourceSize": {
+				"w": 512,
+				"h": 256
+			}
+		},
+		{
+			"filename": "67 Sem Título2.png",
+			"frame": {
+				"x": 521,
+				"y": 527,
 				"w": 512,
 				"h": 256
 			},
@@ -175,7 +133,7 @@
 		"image": "spritesheet.png",
 		"format": "RGBA8888",
 		"size": {
-			"w": 1554,
+			"w": 1036,
 			"h": 786
 		},
 		"scale": "1"

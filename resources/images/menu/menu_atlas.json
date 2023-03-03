@@ -1,10 +1,52 @@
 {
 	"frames": [
 		{
-			"filename": "credits.png",
+			"filename": "achievments.png",
 			"frame": {
 				"x": 3,
 				"y": 3,
+				"w": 756,
+				"h": 256
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 756,
+				"h": 256
+			},
+			"sourceSize": {
+				"w": 756,
+				"h": 256
+			}
+		},
+		{
+			"filename": "achievments-hover.png",
+			"frame": {
+				"x": 3,
+				"y": 265,
+				"w": 756,
+				"h": 256
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 756,
+				"h": 256
+			},
+			"sourceSize": {
+				"w": 756,
+				"h": 256
+			}
+		},
+		{
+			"filename": "credits.png",
+			"frame": {
+				"x": 3,
+				"y": 527,
 				"w": 512,
 				"h": 256
 			},
@@ -25,7 +67,7 @@
 			"filename": "credits-hover.png",
 			"frame": {
 				"x": 521,
-				"y": 3,
+				"y": 527,
 				"w": 512,
 				"h": 256
 			},
@@ -46,7 +88,7 @@
 			"filename": "options.png",
 			"frame": {
 				"x": 3,
-				"y": 265,
+				"y": 789,
 				"w": 512,
 				"h": 256
 			},
@@ -67,7 +109,7 @@
 			"filename": "options-hover.png",
 			"frame": {
 				"x": 521,
-				"y": 265,
+				"y": 789,
 				"w": 512,
 				"h": 256
 			},
@@ -87,8 +129,8 @@
 		{
 			"filename": "playlist.png",
 			"frame": {
-				"x": 3,
-				"y": 527,
+				"x": 765,
+				"y": 3,
 				"w": 512,
 				"h": 256
 			},
@@ -108,8 +150,8 @@
 		{
 			"filename": "playlist-hover.png",
 			"frame": {
-				"x": 521,
-				"y": 527,
+				"x": 765,
+				"y": 265,
 				"w": 512,
 				"h": 256
 			},
@@ -130,7 +172,7 @@
 			"filename": "story.png",
 			"frame": {
 				"x": 1039,
-				"y": 3,
+				"y": 527,
 				"w": 512,
 				"h": 256
 			},
@@ -151,7 +193,7 @@
 			"filename": "story-hover.png",
 			"frame": {
 				"x": 1039,
-				"y": 265,
+				"y": 789,
 				"w": 512,
 				"h": 256
 			},
@@ -176,7 +218,7 @@
 		"format": "RGBA8888",
 		"size": {
 			"w": 1554,
-			"h": 786
+			"h": 1048
 		},
 		"scale": "1"
 	}

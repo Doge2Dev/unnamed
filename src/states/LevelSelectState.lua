@@ -1,6 +1,6 @@
 levelselect = {}
 
-function levelselect:init()
+function levelselect:enter()
     atlasparser = require 'src.components.AtlasParser'
 
     arrowImg, arrowQuads = atlasparser.getQuads("levelselect/arrows")

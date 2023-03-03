@@ -2,11 +2,12 @@ shoot = {}
 
 shoot.Shoots = {}
 
-function shoot.new(x, y, speed)
+function shoot.new(x, y, xspeed, yspeed)
     Shoot = {
-        x = x or math.random(1, 5),
-        y = y or math.random(1, 5),
-        speed = speed or math.random(1, 5)
+        x = x or love.graphics.getWidth(),
+        y = y or math.random(48, love.graphics.getHeight()),
+        xspeed = xspeed or math.random(1, 5),
+        yspeed = yspeed or math.random(-5, 5),
     }
     Shoot.texture = love.graphics.newImage("resources/images/objects/projectile.png")
     Shoot.w = 48--Shoot.texture:getWidth()
@@ -15,15 +16,19 @@ function shoot.new(x, y, speed)
 end
 
 function shoot.render()
-    for k, shoot in pairs(shoot.Shoots) do
-        love.graphics.draw(shoot.texture, shoot.x, shoot.y, 0, 0.5, 0.5)
-        love.graphics.rectangle("line", shoot.x, shoot.y, shoot.w, shoot.h)
+    for k, bullet in pairs(shoot.Shoots) do
+        love.graphics.draw(bullet.texture, bullet.x, bullet.y, 0, 0.5, 0.5)
+        love.graphics.rectangle("line", bullet.x, bullet.y, bullet.w, bullet.h)
     end
 end
 
 function shoot.update(elapsed)
-    for k, shoot in pairs(shoot.Shoots) do
-        shoot.x = shoot.x - shoot.speed
+    for k, bullet in pairs(shoot.Shoots) do
+        bullet.x = bullet.x - bullet.xspeed
+        bullet.y = bullet.y - bullet.yspeed
+        if bullet.x < 0 then
+            table.remove(shoot.Shoots, k)
+        end
     end
 end
 

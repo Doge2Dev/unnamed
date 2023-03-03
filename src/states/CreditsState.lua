@@ -1,6 +1,6 @@
 credits = {}
 
-function credits:init()
+function credits:enter()
     -- sloow esteve por aqui --
     Controls = require 'src.components.Controls'
 

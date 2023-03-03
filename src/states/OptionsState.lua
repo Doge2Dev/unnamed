@@ -1,6 +1,6 @@
 options = {}
 
-function options:init()
+function options:enter()
     Controls = require 'src.components.Controls'
 
     Options = {
