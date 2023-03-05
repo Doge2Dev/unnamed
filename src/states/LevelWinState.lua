@@ -81,12 +81,10 @@ function win:keypressed(k)
         Switch(CurrentItem, {
             [1] = function()
                 conductor.stop()
-                playstate:init()
                 gamestate.switch(states.Playstate)
             end,
             [2] = function()
                 conductor.stop()
-                menustate:init()
                 gamestate.switch(states.Menu)
             end
         })
@@ -104,12 +102,10 @@ function win:gamepadpressed(jstk, button)
         Switch(CurrentItem, {
             [1] = function()
                 conductor.stop()
-                playstate:init()
                 gamestate.switch(states.Playstate)
             end,
             [2] = function()
                 conductor.stop()
-                menustate:init()
                 gamestate.switch(states.Menu)
             end
         })

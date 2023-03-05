@@ -13,6 +13,8 @@ function love.load()
     discordrpc = require 'libraries.discordRPC'
     transition = require 'libraries.TransitionMgr'
 
+    GameVersion = "0.0.1"
+
     quicksand = love.graphics.newFont("resources/fonts/quicksand-light.ttf", 20)
     love.graphics.setFont(quicksand)
 
@@ -35,7 +37,36 @@ function love.load()
         true,   -- glow
         true,   -- controller
         true,   -- Antialiasing
+        10     -- Volume
     }
+
+    -- songlist --
+    Songs = {
+        {title = "nip-trip", isLocked = false},
+    }
+
+    local raw = {
+        version = GameVersion,
+        content = Songs
+    }
+    local saveinfo = love.filesystem.getInfo("save.dat")
+    if saveinfo == nil then
+        local savefile = love.filesystem.newFile("save.dat", "w")
+        savefile:write(json.encode(raw))
+        savefile:close()
+        print("[SAVE] : No save detected, created new one")
+    else
+        local jsonraw = love.filesystem.read("save.dat")
+        local savedata = json.decode(jsonraw)
+        if savedata.version ~= GameVersion then
+            local savefile = love.filesystem.newFile("save.dat", "w")
+            savefile:write(json.encode(raw))
+            savefile:close()
+            print("[SAVE] : Savefile updated")
+        else
+            print("[SAVE] : Save is equals")
+        end
+    end
 
     -- if not exist create the file --
     optionsdata = love.filesystem.getInfo("options.json")
@@ -76,4 +107,13 @@ end
 
 function love.update(elapsed)
     math.randomseed(os.clock())
+    -- set the volume --
+    love.audio.setVolume(0.1 * Settings[4])
+end
+
+function updateSave()
+    local savefile = love.filesystem.newFile("save.dat", "w")
+    savefile:write(json.encode(raw))
+    savefile:close()
+    print("[SAVE] : Savefile updated")
 end

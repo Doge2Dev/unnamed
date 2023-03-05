@@ -6,15 +6,23 @@ function options:enter()
     Options = {
         {
             option = "Glow",
+            type = "bool",
             description = "Enable glow FX on hud and tiles"
         },
         {
             option = "Controller mode",
+            type = "bool",
             description = "Enable controller support (Require restart)"
         },
         {
             option = "Antialiasing",
+            type = "bool",
             description = "Allow Antialiasing"
+        },
+        {
+            option = "Volume",
+            type = "numeric",
+            description = "Change the game volume"
         },
     }
 
@@ -84,11 +92,23 @@ function options:keypressed(k)
         cursorY = cursorY - 50
         currentOption = currentOption - 1
     end
+    if k == Controls.Keyboard.SELECT_RIGHT then
+        if Options[currentOption].type == "numeric" then
+            Settings[currentOption] = Settings[currentOption] + 1
+        end
+    end
+    if k == Controls.Keyboard.SELECT_LEFT then
+        if Options[currentOption].type == "numeric" then
+            Settings[currentOption] = Settings[currentOption] - 1
+        end
+    end
     if k == Controls.Keyboard.ACCEPT then
-        if Settings[currentOption] then
-            Settings[currentOption] = false
-        else
-            Settings[currentOption] = true
+        if Options[currentOption].type == "bool" then
+            if Settings[currentOption] then
+                Settings[currentOption] = false
+            else
+                Settings[currentOption] = true
+            end
         end
     end
     if k == Controls.Keyboard.BACK then
@@ -108,10 +128,22 @@ function options:gamepadpressed(jstk, button)
             currentOption = currentOption + 1
         end
         if joystick:isGamepadDown(Controls.Gamepad.ACCEPT) then
-            if Settings[currentOption] then
-                Settings[currentOption] = false
-            else
-                Settings[currentOption] = true
+            if Options[currentOption].type == "bool" then
+                if Settings[currentOption] then
+                    Settings[currentOption] = false
+                else
+                    Settings[currentOption] = true
+                end
+            end
+        end
+        if joystick:isGamepadDown(Controls.Gamepad.SELECT_RIGHT) then
+            if Options[currentOption].type == "numeric" then
+                Settings[currentOption] = Settings[currentOption] + 1
+            end
+        end
+        if joystick:isGamepadDown(Controls.Gamepad.SELECT_LEFT) then
+            if Options[currentOption].type == "numeric" then
+                Settings[currentOption] = Settings[currentOption] - 1
             end
         end
         if joystick:isGamepadDown(Controls.Gamepad.BACK) then
@@ -130,6 +162,18 @@ function options:gamepadaxis(joystick, axis, value)
         if value == 1 then
             cursorY = cursorY + 50
             currentOption = currentOption + 1
+        end
+	end
+    if axis == "leftx" then
+		if value == -1 then
+            if Options[currentOption].type == "numeric" then
+                Settings[currentOption] = Settings[currentOption] - 1
+            end
+        end
+        if value == 1 then
+            if Options[currentOption].type == "numeric" then
+                Settings[currentOption] = Settings[currentOption] + 1
+            end
         end
 	end
 end

@@ -4,8 +4,9 @@ function logostate:enter()
     Timer = require 'libraries.timer'
     studioLogo = love.graphics.newImage("resources/images/logoTransparent.png")
     studioLogoSize = 0.6
+    gamepadIcon = love.graphics.newImage("resources/images/GUI/gamepadicon.png")
 
-    quicksand = love.graphics.newFont("resources/fonts/quicksand-light.ttf", 20)
+    quicksand = love.graphics.newFont("resources/fonts/quicksand-light.ttf", 30)
     love.graphics.setFont(quicksand)
 
     logoTimer = Timer.new()
@@ -25,6 +26,8 @@ function logostate:draw()
                 studioLogo:getWidth() / 2,
                 studioLogo:getHeight() / 2
             )
+            love.graphics.draw(gamepadIcon, 10, 680, 0, 0.3, 0.3)
+            love.graphics.print("This game have gamepad support", 150, 690)
         end
     )
 end

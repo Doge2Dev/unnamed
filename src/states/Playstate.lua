@@ -43,6 +43,12 @@ function playstate:enter()
     MapSettings = json.decode(raw)
     MapData = json.decode(rawData)
 
+    camera_x = 0
+    camera_y = 0
+    shakeDuration = 0
+    shakeMagnitude = 0
+    t = shakeDuration
+
     conductor.setBPM(MapData.bpm)
 
     editorOffset = 0
@@ -64,10 +70,9 @@ function playstate:draw()
             shoot.render()
             saw.render()
         Camera:detach()
-        laser.render()
         love.graphics.draw(fadebg, 0, 0, 0, 1.2, 1.2)
     end)
-    conductor.render()
+    laser.render()
 end
 
 function playstate:update(elapsed)
@@ -77,7 +82,7 @@ function playstate:update(elapsed)
 
     editorOffset = (MapData.speed * 1.5) + (editorOffset + (conductor.dspSongTime * 1000) * 0.5) + elapsed
 
-    Camera:lookAt(math.floor(editorOffset), love.graphics.getHeight() / 2)
+    Camera:lookAt(math.floor(editorOffset) + camera_x, love.graphics.getHeight() / 2 + camera_y)
 
     eventhandler.update(elapsed)
 
@@ -161,6 +166,7 @@ function newLaser(time)
 end
 
 function levelEnd()
+    eventhandler.levelEnds()
     gamestate.switch(states.LevelWinState)
 end
 

@@ -9,7 +9,7 @@ local songLastStep = conductor.songPositionInSteps
 function eventhandler.load(filename)
     code, error = love.filesystem.load("resources/data/maps/" .. filename .. "/event.lua")
     if error ~= nil then
-        print(error)
+        print("[ERROR] : " .. error)
     end
 end
 
@@ -26,6 +26,11 @@ function eventhandler.update(elapsed)
             pcall(code(), onStep())
         end
     end
+end
+
+function eventhandler.levelEnds()
+    print("[EVENT] : Level Ends]")
+    pcall(code(), levelEnd())
 end
 
 return eventhandler

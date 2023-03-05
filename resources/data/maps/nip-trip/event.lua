@@ -8,14 +8,18 @@ function onBeat()
         newBullet(3)
     end
     --newLaser(0.05)
-    if Beat == 114 then
+    if Beat == 115 then
         levelEnd()
     end
 end
 
 --- this function is called every step
 function onStep()
-    if Step > 10 and Step < 13 then
+    if Step > 10 and Step < 18 then
         newLaser(0.01)
     end
+end
+
+function levelEnd()
+    --songlist[2] = true
 end
