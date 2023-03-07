@@ -17,7 +17,6 @@ end
 
 function player:render()
     love.graphics.draw(self.img, self.quads[self.AnimFrame], self.x, self.y, 0, 1.5, 1.5, 18, 20)
-    love.graphics.rectangle("line", self.hitbox.x, self.hitbox.y, self.hitbox.w, self.hitbox.h)
 end
 
 function player:update(elapsed)

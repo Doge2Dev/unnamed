@@ -19,6 +19,8 @@ function playstate:enter()
     fadebg = love.graphics.newImage("resources/images/FX/fade.png")
     tileImage, tileQuads = atlasparser.getQuads("atlas_sheet1")
 
+    noclip = false
+
     -- particle system
     fade = love.graphics.newImage("resources/images/FX/glow.png")
     psystem = love.graphics.newParticleSystem(fade, 1000)
@@ -71,6 +73,9 @@ function playstate:draw()
             saw.render()
         Camera:detach()
         love.graphics.draw(fadebg, 0, 0, 0, 1.2, 1.2)
+        if noclip then
+            love.graphics.print("noclip", 0, 0)
+        end
     end)
     laser.render()
 end
@@ -89,39 +94,41 @@ function playstate:update(elapsed)
     camZoom = Math.lerp(camZoom, 1, 1.4)
     Camera:zoomTo(camZoom)
 
-    for k, Block in pairs(MapSettings.Blocks) do
-        if utilities.collision(player:getHitbox(), Block) and isPlayerAlive then
-            psystem:emit(10)
-            isPlayerAlive = false
-            deathTimer = timer.new()
-            print("[COLLISION] block")
+    if not noclip then
+        for k, Block in pairs(MapSettings.Blocks) do
+            if utilities.collision(player:getHitbox(), Block) and isPlayerAlive then
+                psystem:emit(10)
+                isPlayerAlive = false
+                deathTimer = timer.new()
+                print("[COLLISION] block")
+            end
         end
-    end
-
-    for k, projectile in pairs(shoot.Shoots) do
-        if utilities.collision(player:getHitbox(), projectile) and isPlayerAlive then
-            psystem:emit(10)
-            isPlayerAlive = false
-            deathTimer = timer.new()
-            print("[COLLISION] projectile")
+    
+        for k, projectile in pairs(shoot.Shoots) do
+            if utilities.collision(player:getHitbox(), projectile) and isPlayerAlive then
+                psystem:emit(10)
+                isPlayerAlive = false
+                deathTimer = timer.new()
+                print("[COLLISION] projectile")
+            end
         end
-    end
-
-    for k, saw in pairs(saw.Saws) do
-        if utilities.collision(player:getHitbox(), saw.hitbox) and isPlayerAlive then
-            psystem:emit(10)
-            isPlayerAlive = false
-            deathTimer = timer.new()
-            print("[COLLISION] saw")
+    
+        for k, saw in pairs(saw.Saws) do
+            if utilities.collision(player:getHitbox(), saw.hitbox) and isPlayerAlive then
+                psystem:emit(10)
+                isPlayerAlive = false
+                deathTimer = timer.new()
+                print("[COLLISION] saw")
+            end
         end
-    end
-
-    for k, laser in pairs(laser.Lasers) do
-        if utilities.collision(player:getHitbox(), laser.hitbox) and isPlayerAlive and laser.allowCollision then
-            psystem:emit(10)
-            isPlayerAlive = false
-            deathTimer = timer.new()
-            print("[COLLISION] laser")
+    
+        for k, laser in pairs(laser.Lasers) do
+            if utilities.collision(player:getHitbox(), laser.hitbox) and isPlayerAlive and laser.allowCollision then
+                psystem:emit(10)
+                isPlayerAlive = false
+                deathTimer = timer.new()
+                print("[COLLISION] laser")
+            end
         end
     end
 
@@ -137,6 +144,19 @@ function playstate:update(elapsed)
     saw.update(elapsed)
     laser.update(elapsed)
 end
+
+--[[
+function playstate:keypressed(k)
+    if k == "1" then
+        if noclip then
+            noclip = false
+        else
+            noclip = true
+        end
+    end
+end
+]]--
+
 -------------------------------
 
 function cameraBump(amount)

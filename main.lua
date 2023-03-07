@@ -111,9 +111,9 @@ function love.update(elapsed)
     love.audio.setVolume(0.1 * Settings[4])
 end
 
-function updateSave()
+function updateSave(data)
     local savefile = love.filesystem.newFile("save.dat", "w")
-    savefile:write(json.encode(raw))
+    savefile:write(json.encode(data))
     savefile:close()
     print("[SAVE] : Savefile updated")
 end

@@ -24,11 +24,6 @@ function laser.render()
         love.graphics.setColor(1, 1, 1, Laser.alpha)
         love.graphics.draw(Laser.texture, Laser.x, Laser.y, 0, 50, 1)
         love.graphics.setColor(1, 1, 1, 1)
-        if Laser.allowCollision then
-            love.graphics.setColor(1, 0, 0)
-            love.graphics.rectangle("line", Laser.hitbox.x, Laser.hitbox.y, Laser.hitbox.w, Laser.hitbox.h)
-            love.graphics.setColor(1, 1, 1, 1)
-        end
     end
 end
 

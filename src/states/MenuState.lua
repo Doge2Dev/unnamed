@@ -103,7 +103,7 @@ function menustate:keypressed(k, code)
                 gamestate.switch(states.Credits)
             end,
             [5] = function()
-                gamestate.switch(states.Credits)
+                gamestate.switch(states.AchievementState)
             end
         })
     end

@@ -18,7 +18,6 @@ end
 function shoot.render()
     for k, bullet in pairs(shoot.Shoots) do
         love.graphics.draw(bullet.texture, bullet.x, bullet.y, 0, 0.5, 0.5)
-        love.graphics.rectangle("line", bullet.x, bullet.y, bullet.w, bullet.h)
     end
 end
 

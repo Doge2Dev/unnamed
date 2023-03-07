@@ -11,17 +11,17 @@ function credits:enter()
         guys = {
             {role = "CODERS", guy = "Doge2Dev", pic = love.graphics.newImage('resources/images/credits/doge.png'),desc = "Main coder", link = "https://github.com/Doge2Dev"},
             {role = "CODERS", guy = "Sloow", pic = love.graphics.newImage('resources/images/credits/sloow.png'),desc = "Other dumb coder", link = "https://github.com/sloow001"},
-            {role = "ARTISTS", guy = "Ploxy", pic = love.graphics.newImage('resources/images/credits/sloow.png'),desc = "Artist", link = "https://twitter.com/Ploxycamente2 "},
-            {role = "ARTISTS", guy = "Funfas", pic = love.graphics.newImage('resources/images/credits/sloow.png'),desc = "Artist", link = "PENIS"},
-            {role = "ARTISTS", guy = "Tommix", pic = love.graphics.newImage('resources/images/credits/sloow.png'),desc = "Artist", link = "PENIS"},
-            {role = "ARTISTS", guy = "Agostiniano", pic = love.graphics.newImage('resources/images/credits/sloow.png'),desc = "Artist", link = "https://twitter.com/Agostinoj123"},
-            {role = "MUSICIANS", guy = "DavidePlays", pic = love.graphics.newImage('resources/images/credits/sloow.png'),desc = "Musician", link = "https://twitter.com/DavidePlays"},
-            {role = "MUSICIANS", guy = "TurrTheSmall", pic = love.graphics.newImage('resources/images/credits/sloow.png'),desc = "Musician", link = "https://twitter.com/Turmoiol"},
+            {role = "ARTISTS", guy = "Ploxy", pic = love.graphics.newImage('resources/images/credits/invalid.png'),desc = "Artist", link = "https://twitter.com/Ploxycamente2 "},
+            {role = "ARTISTS", guy = "Funfas", pic = love.graphics.newImage('resources/images/credits/invalid.png'),desc = "Artist", link = "PENIS"},
+            {role = "ARTISTS", guy = "Tommix", pic = love.graphics.newImage('resources/images/credits/invalid.png'),desc = "Artist", link = "PENIS"},
+            {role = "ARTISTS", guy = "Agostiniano", pic = love.graphics.newImage('resources/images/credits/invalid.png'),desc = "Artist", link = "https://twitter.com/Agostinoj123"},
+            {role = "MUSICIANS", guy = "DavidePlays", pic = love.graphics.newImage('resources/images/credits/invalid.png'),desc = "Musician", link = "https://twitter.com/DavidePlays"},
+            {role = "MUSICIANS", guy = "TurrTheSmall", pic = love.graphics.newImage('resources/images/credits/invalid.png'),desc = "Musician", link = "https://twitter.com/Turmoiol"},
             {role = "DESIGNER", guy = "Mark", pic = love.graphics.newImage('resources/images/credits/mark.png'),desc = "Promotional Art", link = "https://www.instagram.com/mar.kdawnn/"},
         },
         massagg = {
-            'LEFT - RIGHT change the category',
-            'UP - DOWN change the current person'
+            'LEFT - RIGHT | change the category',
+            'UP - DOWN | change the current person'
         }
     }
 
@@ -208,6 +208,61 @@ function credits:gamepadpressed(jstk, button)
             gamestate.switch(states.Menu)
         end
     end 
+end
+
+function credits:gamepadaxis(joystick, axis, value)
+	if axis == "lefty" then
+		if value == -1 then
+            cur = cur - 1
+        end
+        if value == 1 then
+            cur = cur + 1
+        end
+	end
+    if axis == "leftx" then
+		if value == -1 then
+            roleee = roleee - 1
+            if roleee < 1 then 
+                roleee = 1
+            end
+            if creditss.guys[roleee].role == 'ARTISTS' then 
+                if roleee == 3 then 
+                    roleee = 1
+                end
+            elseif creditss.guys[roleee].role == 'MUSICIANS' then 
+                if roleee == 7 then 
+                    roleee = 3
+                end
+            elseif creditss.guys[roleee].role == 'DESIGNER' then 
+                if roleee == 9 then 
+                    roleee = 7
+                end
+            end
+        end
+        if value == 1 then
+            roleee = roleee + 1
+            if roleee > 9 then 
+                roleee = 9
+            end
+            if creditss.guys[roleee].role == 'CODERS' then
+                if roleee > 1 then
+                    roleee = 3 
+                end
+            elseif creditss.guys[roleee].role == 'ARTISTS' then 
+                if roleee > 3 then 
+                    roleee = 7
+                end
+            elseif creditss.guys[roleee].role == 'MUSICIANS' then 
+                if roleee > 7 then 
+                    roleee = 9
+                end
+            elseif creditss.guys[roleee].role == 'DESIGNER' then 
+                if roleee > 9 then 
+                    roleee = 9
+                end
+            end
+        end
+	end
 end
 
 return credits

@@ -71,6 +71,18 @@ function options:update(elapsed)
     if currentOption > #Options then
         currentOption = #Options
     end
+    if Options[currentOption].type == "numeric" then
+        if Settings[currentOption] < 0 then
+            Settings[currentOption] = 0
+        end
+    end
+
+    if Options[currentOption].type == "numeric" then
+        if Settings[currentOption] > 10 then
+            Settings[currentOption] = 10
+        end
+    end
+
     if Settings[1] then
         effect.enable("glow")
     else

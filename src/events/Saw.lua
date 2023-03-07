@@ -28,7 +28,6 @@ function saw.render()
         love.graphics.draw(
             saw.texture, saw.x, saw.y, saw.angle, saw.size, saw.size, Saw.texture:getWidth() / 2, Saw.texture:getHeight() / 2
         )
-        love.graphics.rectangle("line", saw.hitbox.x, saw.hitbox.y, saw.hitbox.w, saw.hitbox.h)
     end
 end
 
