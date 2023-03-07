@@ -89,36 +89,8 @@ function menustate:keypressed(k, code)
         gamestate.switch(states.LevelEditor)
     end
     if k == Controls.Keyboard.ACCEPT then
-        Switch(CurrentItem, {
-            [1] = function()
-                gamestate.switch(states.LevelSelect)
-            end,
-            [2] = function()
-                gamestate.switch(states.Playlist)
-            end,
-            [3] = function()
-                gamestate.switch(states.OptionsState)
-            end,
-            [4] = function()
-                gamestate.switch(states.Credits)
-            end,
-            [5] = function()
-                gamestate.switch(states.AchievementState)
-            end
-        })
-    end
-end
-
-function menustate:gamepadpressed(jstk, button)
-    if joystick ~= nil then
-        if joystick:isGamepadDown(Controls.Gamepad.SELECT_UP) then
-            CurrentItem = CurrentItem - 1
-        end
-        if joystick:isGamepadDown(Controls.Gamepad.SELECT_DOWN) then
-            CurrentItem = CurrentItem + 1
-        end
-        if joystick:isGamepadDown(Controls.Gamepad.ACCEPT) then
-            Switch(CurrentItem, {
+        Switch(
+            CurrentItem, {
                 [1] = function()
                     gamestate.switch(states.LevelSelect)
                 end,
@@ -134,7 +106,39 @@ function menustate:gamepadpressed(jstk, button)
                 [5] = function()
                     gamestate.switch(states.Credits)
                 end
-            })
+            }
+        )
+    end
+end
+
+function menustate:gamepadpressed(jstk, button)
+    if joystick ~= nil then
+        if joystick:isGamepadDown(Controls.Gamepad.SELECT_UP) then
+            CurrentItem = CurrentItem - 1
+        end
+        if joystick:isGamepadDown(Controls.Gamepad.SELECT_DOWN) then
+            CurrentItem = CurrentItem + 1
+        end
+        if joystick:isGamepadDown(Controls.Gamepad.ACCEPT) then
+            Switch(
+                CurrentItem, {
+                    [1] = function()
+                        gamestate.switch(states.LevelSelect)
+                    end,
+                    [2] = function()
+                        gamestate.switch(states.Playlist)
+                    end,
+                    [3] = function()
+                        gamestate.switch(states.OptionsState)
+                    end,
+                    [4] = function()
+                        gamestate.switch(states.Credits)
+                    end,
+                    [5] = function()
+                        gamestate.switch(states.Credits)
+                    end
+                }
+            )
         end
     end
 end
