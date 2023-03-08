@@ -15,6 +15,7 @@ function love.load()
 
     GameVersion = "0.0.1"
 
+
     quicksand = love.graphics.newFont("resources/fonts/quicksand-light.ttf", 20)
     love.graphics.setFont(quicksand)
 
@@ -102,7 +103,7 @@ function love.load()
     end
 
     gamestate.registerEvents()
-    gamestate.switch(states.Logostate)
+    gamestate.switch(states.Playstate)
 end
 
 function love.update(elapsed)

@@ -12,7 +12,9 @@ function playstate:enter()
     shoot = require 'src.events.Shoot'
     saw = require 'src.events.Saw'
     laser = require 'src.events.Laser'
+    meteorites = require 'src.events.Meteorite'
     timer = require 'libraries.timer'
+    achievement = require 'src.states.AchievmentState'
     
     Camera = camera(love.graphics.getWidth() / 2 , love.graphics.getHeight() / 2)
     bg = love.graphics.newImage("resources/images/bgs/game_bg5.png")
@@ -71,6 +73,7 @@ function playstate:draw()
             end
             shoot.render()
             saw.render()
+            meteorite.render()
         Camera:detach()
         love.graphics.draw(fadebg, 0, 0, 0, 1.2, 1.2)
         if noclip then
@@ -121,6 +124,24 @@ function playstate:update(elapsed)
                 print("[COLLISION] saw")
             end
         end
+
+        for k, Meteore in pairs(meteorite.Meteorites) do
+            if utilities.collision(player:getHitbox(), Meteore.hitbox) and isPlayerAlive then
+                psystem:emit(10)
+                isPlayerAlive = false
+                deathTimer = timer.new()
+                print("[COLLISION] saw")
+            end
+        end
+
+        for k, Meteorite in pairs(meteorite.MiniMeteores) do
+            if utilities.collision(player:getHitbox(), Meteorite.hitbox) and isPlayerAlive then
+                psystem:emit(10)
+                isPlayerAlive = false
+                deathTimer = timer.new()
+                print("[COLLISION] saw")
+            end
+        end
     
         for k, laser in pairs(laser.Lasers) do
             if utilities.collision(player:getHitbox(), laser.hitbox) and isPlayerAlive and laser.allowCollision then
@@ -140,12 +161,12 @@ function playstate:update(elapsed)
     end
 
     psystem:update(elapsed)
+    meteorite.update(elapsed)
     shoot.update(elapsed)
     saw.update(elapsed)
     laser.update(elapsed)
 end
 
---[[
 function playstate:keypressed(k)
     if k == "1" then
         if noclip then
@@ -155,7 +176,7 @@ function playstate:keypressed(k)
         end
     end
 end
-]]--
+
 
 -------------------------------
 
@@ -177,12 +198,16 @@ function newSaw()
     saw.new(
         love.graphics.getWidth() + editorOffset, 
         math.random(1, love.graphics.getHeight()), 
-        math.random(1,3), 1
+        math.random(1, 3), 1
     )
 end
 
-function newLaser(time)
-    laser.new(math.random(64, love.graphics.getHeight() - 64), time)
+function newLaser(y, time)
+    laser.new(y, time)
+end
+
+function newMeteorite(y, hp, speed)
+    meteorite.new(love.graphics.getWidth() + editorOffset, y, hp, speed)
 end
 
 function levelEnd()

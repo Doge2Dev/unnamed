@@ -8,7 +8,7 @@ function fx.new(x, y)
     Fx.y = y
     Fx.alpha = 1
     Fx.size = 0
-    Fx.texture = love.graphics.newImage("resources/images/menu/fx.png")
+    Fx.texture = love.graphics.newImage("resources/images/FX/fx.png")
     table.insert(fxs, Fx)
 end
 
